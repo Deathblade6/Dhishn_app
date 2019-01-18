@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/events"
+        android:icon="@drawable/list"
+        android:title="Events" />
+
+    <item
+        android:id="@+id/qr"
+        android:icon="@drawable/qr_code"
+        android:title="Live registration" />
+
+    <item
+        android:id="@+id/notification"
+        android:icon="@drawable/notifications"
+        android:title="Live feed" />
+
+    <item android:id="@+id/profile"
+        android:icon="@drawable/user"
+        android:title="Profile"/>
+</menu>

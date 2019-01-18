@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/events_bg_vector"
+    tools:context=".ListFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/flagship_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/departments_name_ec"
+                style="@style/departmentNameStyle"
+                android:text="@string/department_name_ec" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/departments_recycler_view_ec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/departments_name_eee"
+                style="@style/departmentNameStyle"
+                android:text="@string/department_name_eee" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/departments_recycler_view_eee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/departments_name_ce"
+                style="@style/departmentNameStyle"
+                android:text="@string/department_name_ce" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/departments_recycler_view_ce"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/departments_name_cs"
+                style="@style/departmentNameStyle"
+                android:text="@string/department_name_cs" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/departments_recycler_view_cs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/departments_name_it"
+                style="@style/departmentNameStyle"
+                android:text="@string/department_name_it" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/departments_recycler_view_it"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/departments_name_me"
+                style="@style/departmentNameStyle"
+                android:text="@string/department_name_me" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/departments_recycler_view_me"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/departments_name_se"
+                style="@style/departmentNameStyle"
+                android:text="@string/department_name_se" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/departments_recycler_view_se"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
+

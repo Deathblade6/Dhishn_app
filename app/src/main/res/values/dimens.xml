@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cardTextSize">14sp</dimen>
+    <dimen name="cardVerticalMargin">8dp</dimen>
+    <dimen name="coordinatorCardElevation">8dp</dimen>
+    <dimen name="coordinatorIconMargin">8dp</dimen>
+    <dimen name="coordinatorIconEndPadding">16dp</dimen>
+    <dimen name="coordinatorIconSize">56dp</dimen>
+</resources>

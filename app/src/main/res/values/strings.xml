@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">RecyclerTest</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="transition_string">hello</string>
+    <string name="transition_string_cont">container</string>
+    <string name="transition_string_text">bye</string>
+
+    <string name="event_description_title">Description</string>
+    <string name="event_registration_title">Registration</string>
+    <string name="event_rules_title">Rules</string>
+    <string name="event_coordinators_title">Coordinators</string>
+    <string name="event_fees_title">Fees: </string>
+    <string name="event_status_title">Status: </string>
+    <string name="event_register_button_text">Register</string>
+    <string name="event_prize_one">1st prize</string>
+    <string name="event_prize_two">2nd prize</string>
+    <string name="event_prize_three">3rd prize</string>
+
+    <string name="placeholder_coordinator">Ebin Santy</string>
+    <string name="placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean interdum nunc magna, ut semper erat rutrum vel. Phasellus dictum lacus et mollis aliquet. In vitae interdum diam.</string>
+    <string name="placeholder_long">""<b>ROUND 1: TYPE HYPE</b>\n\nOne participant from the team will be given a time duration of 2 minutes to type a page of 150 words. However the screen will not be displayed, and the participant will not be able to see what he/she types during the 2 minute challenge. The points awarded will be based only on the degree of accuracy.\n\nIn case of a tie after 4 rounds, the team that completed this round faster will be declared the winner.\n\n<b>ROUND 2:  TRAILBLAZER</b>\n\nThe participants will be shown a web page from which they have to navigate to the destination web page specified without using anything other than the mouse, within a specified time limit. Marks will be awarded only if they reach the destination web page within the allotted time of 5 minutes.\nThere will be no option to return to the previous page. The participants will have to restart to do that.\n\n<b>ROUND 3: QUICK CONNECT</b>\n\n   The participants will be given 4 envelopes, each containing a picture. To open an envelope, a participant will have to solve the question given outside the envelope. Once they get the right answer, they are allowed to open the envelope, which contains a picture. When all 4 envelopes are opened, the participants can guess the connection between the pictures.\n\nIn case any envelope is unopened, the participant can request for the answer to unlock the envelope, at the cost of -5 points.\n\n A proper fully correct answer (the connection between the four pictures) will be rewarded 30 points. \n \nThe time allotted to complete the whole round is 6 minutes.\n\n<b>ROUND 4: THE BRAINIAC</b>\n\nEach team will be allotted a maximum of 7 minutes to solve a crime. The case files with the required evidence will be given to the participants. The participants will have to read this and find the criminal. The participants will be required to give the right answer along with a proper reason to justify their answer (to avoid random guesswork).\n\nRegistration should be individual."</string>
+    <string name="placeholder_xl">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut nisi non nunc porta placerat. Mauris rutrum dolor ac dapibus varius. Integer ut lectus a diam auctor scelerisque ac a justo. Sed et lectus urna. Aliquam orci magna, eleifend ut vehicula eu, varius in ligula. Cras ante leo, faucibus eu nulla id, pulvinar efficitur mi. Ut mauris nulla, tempus nec placerat nec, ullamcorper in velit. Integer sit amet suscipit enim. Pellentesque in elit eleifend, convallis ante eu, posuere justo. Nulla dictum erat quam, id congue dolor convallis vel.
+
+Integer viverra, nunc at consectetur dapibus, lorem leo semper nisi, luctus tempor dui turpis vitae mauris. Fusce tincidunt pellentesque risus vel tincidunt. Sed pellentesque ac sapien eu venenatis. Mauris rhoncus orci in justo pretium finibus. Donec mollis dui et risus consectetur ullamcorper. Cras tempus fringilla interdum. Donec urna augue, vulputate vel rhoncus id, maximus nec nibh. Quisque eget orci velit. Curabitur sit amet eleifend nulla, non tempor erat. Proin lacinia tincidunt sollicitudin.
+
+Pellentesque metus augue, pharetra sed est ut, rutrum imperdiet augue. Nulla cursus sodales quam in finibus. In hac habitasse platea dictumst. Fusce vitae lectus et leo bibendum blandit ac in ligula. Nulla purus ipsum, ornare ut lorem vitae, fermentum tincidunt velit. Aliquam et sodales nisl, vitae rhoncus arcu. Mauris eu urna odio.
+
+Aliquam tincidunt tortor ut nisi consectetur, sit amet lobortis augue elementum. Donec risus lectus, eleifend ac bibendum in, condimentum vitae nunc. Nam tempor ultrices diam, vel mattis felis rutrum eget. Quisque tristique velit sit amet quam ornare, in blandit libero pulvinar. Aenean pharetra vestibulum velit, ut consectetur sem viverra ac. Cras laoreet vitae magna eget iaculis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed mattis sit amet eros mollis elementum. Sed rutrum dolor mollis dui mattis vestibulum. Maecenas euismod erat velit, vitae ullamcorper nibh maximus ut.</string>
+
+
+    <string name="department_name_cs">Computer Science</string>
+    <string name="department_name_ec">Electronics and Communication</string>
+    <string name="department_name_ce">Civil</string>
+    <string name="department_name_it">Information Technology</string>
+    <string name="department_name_me">Mechanical</string>
+    <string name="department_name_eee">Electrical and Electronics</string>
+    <string name="department_name_se">Safety</string>
+
+
+    <string name="text_show_more">Show more.</string>
+    <string name="text_show_less">Show less.</string>
+</resources>
