@@ -73,7 +73,7 @@ public class ListFragment extends Fragment {
         mFlagshipRecyclerView.setAdapter(mFlagshipAdapter);
         mFlagshipRecyclerView.setNestedScrollingEnabled(false);
         prepareFlagshipEvents();
-        experimentalAutoScroll(0);
+        setUpAutoScroll(0);
         mFlagshipRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), mFlagshipRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -102,7 +102,7 @@ public class ListFragment extends Fragment {
                 }
                 if (newState == SCROLL_STATE_IDLE)
                     if (!mIsScrolling)
-                        experimentalAutoScroll(mFlagshipAdapter.getCurrentPos());
+                        setUpAutoScroll(mFlagshipAdapter.getCurrentPos());
 //                    mHandler.postDelayed(mRunnable, 3200);
             }
 
@@ -200,7 +200,7 @@ public class ListFragment extends Fragment {
                 .commit();
     }
 
-    private void experimentalAutoScroll(final int pos){
+    private void setUpAutoScroll(final int pos){
         mTimer = new Timer();
         TimerTask task = new TimerTask() {
             int count = pos;
@@ -225,36 +225,6 @@ public class ListFragment extends Fragment {
         mTimer.scheduleAtFixedRate(task, 3000, 3200);
     }
 
-    private void setupAutoScrollForFlagshipEvents(final int currentPos) {
-
-        //TODO: stop the process when the user scrolls through the cards.
-        final int speedScroll = 3200;
-        mHandler = new Handler();
-        mRunnable = new Runnable() {
-            int count = currentPos;
-            boolean flag = true;
-
-            @Override
-            public void run() {
-                if (count < mFlagshipAdapter.getItemCount()) {
-                    mFlagshipRecyclerView.getScrollX();
-                    if (count == mFlagshipAdapter.getItemCount() - 1) {
-                        flag = false;
-                    } else if (count == 0) {
-                        flag = true;
-                    }
-                    if (flag) count++;
-                    else count--;
-
-                    mFlagshipRecyclerView.smoothScrollToPosition(count);
-                    mHandler.postDelayed(this, speedScroll);
-
-                }
-            }
-        };
-
-        mHandler.postDelayed(mRunnable, speedScroll);
-    }
 
     private void prepareFlagshipEvents() {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();

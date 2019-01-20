@@ -1,14 +1,28 @@
 package com.example.deathblade.bottom_nav_bar.Fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.graphics.drawable.Animatable2Compat;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.deathblade.bottom_nav_bar.Adaptersnextra.Event;
 import com.example.deathblade.bottom_nav_bar.Adaptersnextra.EventsAdapter;
@@ -17,6 +31,7 @@ import com.example.deathblade.bottom_nav_bar.R;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -31,11 +46,21 @@ public class Profile extends Fragment {
     EventsAdapter mAdapter;
     String uid = "He2diL0fwtZ7mqm70o2CXNLeJke2";
     ArrayList<Event> mEventsLists;
+    CollapsingToolbarLayout toolbarLayout;
     EventsAdapter mEventAdapters = new EventsAdapter();
+    private static final String MY_PREFS_NAME = "pref";
+    private static final String UID_KEY = "uid";
+    private View mLoginFormView;
+    private ImageView mProgressView;
+    private TextView mProgressTextView;
+    private View mEmptyView;
+    private View mNoConnectionView;
+    private AnimatedVectorDrawableCompat avd;
 
     public Profile() {
         // Required empty public constructor
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,21 +70,35 @@ public class Profile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_events, container, false);
+        View view = inflater.inflate(R.layout.fragment_events, container, false);
+
+        SharedPreferences prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE);
+        uid = prefs.getString(UID_KEY, uid);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle("User Profile");
+        toolbarLayout = view.findViewById(R.id.collapsing);
+        setupActionBar(toolbar);
+
 
         mRecyclerView = view.findViewById(R.id.profile_events);
+        mLoginFormView = view.findViewById(R.id.profile_events);
+        mProgressView = view.findViewById(R.id.login_progress);
+        mProgressTextView = view.findViewById(R.id.text_progress);
+        mEmptyView = view.findViewById(R.id.profile_empty_view);
+        mNoConnectionView = view.findViewById(R.id.profile_no_connection);
+
+        showProgress(true);
+
+        if (!isNetworkConnected())
+            showNoConnectionView(true);
 
         mEvents = new ArrayList<>();
+        mAdapter = new EventsAdapter(mEvents, true);
 
-        mAdapter = new EventsAdapter(mEvents);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mAdapter);
 
-            mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-            mRecyclerView.setAdapter(mAdapter);
-
-//        mEvents.addAll(placeHolderEvents());
-//        mAdapter.setData(mEvents);
-//        mAdapter.notifyDataSetChanged();
         prepareProfile();
         return view;
     }
@@ -73,28 +112,103 @@ public class Profile extends Fragment {
         return list;
     }
 
+    private void setupActionBar(Toolbar toolbar) {
+        MainActivity activity = (MainActivity) getActivity();
 
-    public void prepareProfile(){
+        activity.setSupportActionBar(toolbar);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        activity.getSupportActionBar().setHomeButtonEnabled(false);
+        activity.getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
+        setHasOptionsMenu(true);
+    }
+
+
+    public void prepareProfile() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference profile_event = firebaseDatabase.getReference().child("users").child(uid).child("events");
-        profile_event.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference profile_name = firebaseDatabase.getReference().child("users").child(uid);
+
+        profile_name.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot event : dataSnapshot.getChildren()) {
+                String s = " ";
+                s += (String) dataSnapshot.child("name").getValue();
+                Log.e("ASDASD", s);
+                toolbarLayout.setTitle(s);
+                showProgress(false);
+                for (DataSnapshot event : dataSnapshot.child("events").getChildren()) {
                     mEvents.add(new Event(event.getKey()
                             , (String) event.getValue()));
 //                        Log.e("Event:", event.getKey() );
                     mAdapter.setData(mEvents);
                     mAdapter.notifyDataSetChanged();
                 }
+
+                mEmptyView.setVisibility(mEvents.isEmpty() ? View.VISIBLE : View.GONE);
+                mLoginFormView.setVisibility(mEvents.isEmpty() ? View.GONE : View.VISIBLE);
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                showNoConnectionView(true);
             }
 
 
         });
         mEventAdapters.notifyDataSetChanged();
     }
+
+
+    private void showNoConnectionView(boolean show) {
+        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        mProgressTextView.setVisibility(show ? View.GONE : View.VISIBLE);
+        mProgressView.setVisibility(show ? View.GONE : View.VISIBLE);
+        mNoConnectionView.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    private void showProgress(final boolean show) {
+        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
+
+        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mProgressTextView.setVisibility(show ? View.VISIBLE : View.GONE);
+
+        avd = AnimatedVectorDrawableCompat.create(mProgressTextView.getContext(), R.drawable.logo_loading_vector_white);
+        mProgressView.setImageDrawable(avd);
+
+        final Animatable animatable = (Animatable) mProgressView.getDrawable();
+        if (show) {
+            animatable.start();
+            avd.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                @Override
+                public void onAnimationEnd(Drawable drawable) {
+                    if (show)
+                        animatable.start();
+                    else
+                        animatable.stop();
+                }
+            });
+        } else {
+            animatable.stop();
+            avd.clearAnimationCallbacks();
+            avd = AnimatedVectorDrawableCompat.create(mProgressTextView.getContext(), R.drawable.logo_loading_vector_white);
+            mProgressView.setImageDrawable(avd);
+        }
+
+
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
+    }
+
 }

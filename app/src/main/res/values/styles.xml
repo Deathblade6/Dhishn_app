@@ -7,15 +7,23 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="cardViewStyle">@style/CardView</item>
+        <item name="coordinatorLayoutStyle">@style/coordinatorLayoutStyle</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textColorHint">@color/textColorHint</item>
+        <item name="bottomNavigationStyle">@style/bottomNavigationStyle</item>
     </style>
 
 
+    <style name="coordinatorLayoutStyle"/>
     <style name="cardViewStyle">
+    </style>
+    <style name="bottomNavigationStyle">
 
     </style>
 
     <style name="CollapseTextStyle">
         <item name="android:textColor">@color/titleTextColor</item>
+        <item name="android:paddingStart">40dp</item>
     </style>
 
     
@@ -25,4 +33,13 @@
         <item name="android:layout_margin">8dp</item>
         <item name="android:paddingStart">16dp</item>
     </style>
+
+    <style name="regFormStyle">
+        <item name="android:background">@drawable/login_button_bg</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:textColorHint">@android:color/darker_gray</item>
+    </style>
+
 </resources>

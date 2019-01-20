@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/events_bg_vector"
+    android:background="@drawable/bg_vector"
     tools:context=".ListFragment">
 
     <LinearLayout

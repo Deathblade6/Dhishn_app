@@ -18,8 +18,9 @@ import java.util.ArrayList;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsHolder> {
 
-    int lastPosition = -1;
-    int index = -1;
+    private int lastPosition = -1;
+    private int index = -1;
+    private int layoutID = R.layout.event_list_tem;
     private ArrayList<Event> eventArrayList;
 
 
@@ -42,12 +43,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsHold
         }
     }
 
+
     /**
      *
-     * @param eventArrayList List of events
+     * @param eventArrayList
+     * @param forProfile true if this is for the porfile page
      */
-    public EventsAdapter(ArrayList<Event> eventArrayList) {
+    public EventsAdapter(ArrayList<Event> eventArrayList , boolean forProfile) {
         this.eventArrayList = eventArrayList;
+        if (forProfile)
+            layoutID = R.layout.profile_list_item;
     }
 
     public EventsAdapter(ArrayList<Event> eventArrayList, int index) {
@@ -81,7 +86,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsHold
     @Override
     public EventsHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.event_list_tem, viewGroup, false);
+                .inflate(layoutID, viewGroup, false);
         CardView cardView = view.findViewById(R.id.card_view);
         cardView.setPreventCornerOverlap(false); //TODO: Check if this works with all versions.
         EventsHolder holder = new EventsHolder(view);

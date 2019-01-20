@@ -8,7 +8,13 @@
     <group>
         <path
             android:fillColor="#B143C5"
-            android:fillAlpha="0.38"
+            android:fillAlpha="0.15"
+            android:strokeAlpha="0.38"
+            android:strokeWidth="1"
+            android:pathData="M 0 3 H 1079 V 695 H 0 V 3 Z" />
+        <path
+            android:fillColor="#000000"
+            android:fillAlpha="0.15"
             android:strokeAlpha="0.38"
             android:strokeWidth="1"
             android:pathData="M 0 3 H 1079 V 695 H 0 V 3 Z" />

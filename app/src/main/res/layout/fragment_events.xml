@@ -15,16 +15,19 @@
         android:fitsSystemWindows="true"
         android:orientation="vertical">
 
+        <!--app:contentScrim="#6B169E"-->
+        <!--app:expandedTitleGravity="center_horizontal|top"-->
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="#6B169E"
             app:expandedTitleMarginTop="8dp"
             app:expandedTitleTextAppearance="@style/CollapseTextStyle"
             app:collapsedTitleTextAppearance="@style/CollapseTextStyle"
             app:expandedTitleGravity="center_horizontal|top"
+            app:collapsedTitleGravity="left"
+            app:contentScrim="@color/colorPrimary"
             android:transitionName="@string/transition_string"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
@@ -51,12 +54,9 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:layout_marginBottom="48dp"
                 android:transitionName="@string/transition_string_text"
                 app:layout_collapseMode="pin"
-                app:title="Test"
-
-                />
+                app:title="User Profile"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -68,19 +68,102 @@
         android:layout_height="match_parent"
         android:id="@+id/scroll"
         android:paddingTop="16dp"
-        android:alpha="0"
         android:background="@drawable/bg_vector"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/profile_events"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/profile_events"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"/>
+
+            <!--Empty View-->
+            <LinearLayout
+                android:id="@+id/profile_empty_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="32dp"
+                android:visibility="gone"
+                android:orientation="vertical"
+                app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/empty_box" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/no_events"
+                    tools:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+            <!--No connection alert-->
+            <LinearLayout
+                android:id="@+id/profile_no_connection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="32dp"
+                android:visibility="gone"
+                android:orientation="vertical"
+                app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/no_connection" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/no_internet"
+                    android:layout_marginTop="8dp"
+                    tools:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+
+            <!-- Login progress -->
+            <ImageView
+                android:id="@+id/login_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"
+                tools:src="@drawable/logo_loading_vector_white"/>
+
+            <TextView
+                android:id="@+id/text_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/login_progress"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                android:layout_marginTop="8dp"
+                android:text="Loading"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
 
 
     </android.support.v4.widget.NestedScrollView>
+
+
 
 </android.support.design.widget.CoordinatorLayout>
 

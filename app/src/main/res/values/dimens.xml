@@ -6,4 +6,5 @@
     <dimen name="coordinatorIconMargin">8dp</dimen>
     <dimen name="coordinatorIconEndPadding">16dp</dimen>
     <dimen name="coordinatorIconSize">56dp</dimen>
+    <dimen name="loginButtonMargin">16dp</dimen>
 </resources>
