@@ -54,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements EventDetailsFragm
         }
     };
 
+
+    //Hey there
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements EventDetailsFragm
     public void setclose() {
         navigation.clearAnimation();
         Log.e("LOOKKIIEI","HEERERERE");
-        Toast.makeText(this,"Working here",Toast.LENGTH_SHORT);
+        Toast.makeText(this,"Working here",Toast.LENGTH_SHORT).show();
         navigation.animate().translationY(navigation.getHeight()).setDuration(300);
     }
 }
