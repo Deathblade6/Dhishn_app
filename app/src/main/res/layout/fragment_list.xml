@@ -15,14 +15,14 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary"
-        app:titleTextColor="@color/textColor"
-        app:title="Events" />
+        app:title="Events"
+        app:titleTextColor="@color/textColor" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_below="@id/toolbar"
         android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
         android:orientation="vertical">
 
         <LinearLayout
@@ -34,6 +34,25 @@
                 android:id="@+id/flagship_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/departments_name_ws"
+                    style="@style/departmentNameStyle"
+                    android:text="@string/department_name_ws" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/departments_recycler_view_ws"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

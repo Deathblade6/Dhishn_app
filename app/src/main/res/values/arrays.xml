@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="departments_recycler_views">
+        <item>@id/departments_recycler_view_ws</item>
         <item>@id/departments_recycler_view_ec</item>
         <item>@id/departments_recycler_view_eee</item>
         <item>@id/departments_recycler_view_ce</item>

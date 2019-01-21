@@ -70,7 +70,7 @@ public class ListFragment extends Fragment {
     Boolean mIsScrolling = false;
     Timer mTimer;
     private boolean isConnected;
-    int no_of_dept = 7;
+    int no_of_dept = 8;
     String LOG_TAG = "ListFragment";
     private View mContentView;
     private AnimatedVectorDrawableCompat avd;
@@ -331,7 +331,7 @@ public class ListFragment extends Fragment {
     private void prepareDepartments() {
         for (int i = 0; i < no_of_dept; i++) {
             final int cur = i;
-            List<String> events = Arrays.asList("ee", "ec", "ce", "cs", "it", "me", "se");
+            List<String> events = Arrays.asList("ws", "ee", "ec", "ce", "cs", "it", "me", "se");
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference event_ref = database.getReference().child("events").child(events.get(i));
             event_ref.addListenerForSingleValueEvent(new ValueEventListener() {

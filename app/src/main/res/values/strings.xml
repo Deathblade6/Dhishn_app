@@ -38,6 +38,7 @@ Aliquam tincidunt tortor ut nisi consectetur, sit amet lobortis augue elementum.
     <string name="department_name_me">Mechanical</string>
     <string name="department_name_eee">Electrical and Electronics</string>
     <string name="department_name_se">Safety</string>
+    <string name="department_name_ws">Workshops</string>
 
 
     <string name="text_show_more">Show more.</string>
