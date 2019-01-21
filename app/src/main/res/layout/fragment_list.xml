@@ -1,149 +1,232 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_vector"
-    tools:context=".ListFragment">
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="@color/textColor"
+        app:title="Events" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/flagship_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="16dp">
-
-            <TextView
-                android:id="@+id/departments_name_ec"
-                style="@style/departmentNameStyle"
-                android:text="@string/department_name_ec" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/departments_recycler_view_ec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
-
-        </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/departments_name_eee"
-                style="@style/departmentNameStyle"
-                android:text="@string/department_name_eee" />
-
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/departments_recycler_view_eee"
+                android:id="@+id/flagship_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/departments_name_ec"
+                    style="@style/departmentNameStyle"
+                    android:text="@string/department_name_ec" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/departments_recycler_view_ec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/departments_name_eee"
+                    style="@style/departmentNameStyle"
+                    android:text="@string/department_name_eee" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/departments_recycler_view_eee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/departments_name_ce"
+                    style="@style/departmentNameStyle"
+                    android:text="@string/department_name_ce" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/departments_recycler_view_ce"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/departments_name_cs"
+                    style="@style/departmentNameStyle"
+                    android:text="@string/department_name_cs" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/departments_recycler_view_cs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/departments_name_it"
+                    style="@style/departmentNameStyle"
+                    android:text="@string/department_name_it" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/departments_recycler_view_it"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/departments_name_me"
+                    style="@style/departmentNameStyle"
+                    android:text="@string/department_name_me" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/departments_recycler_view_me"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/departments_name_se"
+                    style="@style/departmentNameStyle"
+                    android:text="@string/department_name_se" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/departments_recycler_view_se"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <!--No connection alert-->
+    <LinearLayout
+        android:id="@+id/profile_no_connection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="32dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:src="@drawable/no_connection" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/departments_name_ce"
-                style="@style/departmentNameStyle"
-                android:text="@string/department_name_ce" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/departments_recycler_view_ce"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/departments_name_cs"
-                style="@style/departmentNameStyle"
-                android:text="@string/department_name_cs" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/departments_recycler_view_cs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/departments_name_it"
-                style="@style/departmentNameStyle"
-                android:text="@string/department_name_it" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/departments_recycler_view_it"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/departments_name_me"
-                style="@style/departmentNameStyle"
-                android:text="@string/department_name_me" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/departments_recycler_view_me"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/departments_name_se"
-                style="@style/departmentNameStyle"
-                android:text="@string/department_name_se" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/departments_recycler_view_se"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
-
-        </LinearLayout>
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/no_internet" />
 
     </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+
+
+    <!-- Login progress -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/login_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            tools:src="@drawable/logo_loading_vector_white" />
+
+        <TextView
+            android:id="@+id/text_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="Loading"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+
+
 

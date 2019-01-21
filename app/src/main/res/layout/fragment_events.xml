@@ -6,7 +6,8 @@
     android:nestedScrollingEnabled="false"
     android:layout_height="match_parent"
     android:id="@+id/root"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -54,9 +55,32 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_marginBottom="48dp"
                 android:transitionName="@string/transition_string_text"
                 app:layout_collapseMode="pin"
                 app:title="User Profile"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_gravity="bottom"
+                android:background="@color/colorPrimaryDark"
+                android:elevation="2dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/my_events"
+                android:textSize="16sp"
+                android:padding="8dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="3dp"
+                android:paddingStart="16dp"
+                app:layout_collapseMode="pin"
+                android:elevation="3dp"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

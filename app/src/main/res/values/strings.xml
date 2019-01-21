@@ -45,6 +45,7 @@ Aliquam tincidunt tortor ut nisi consectetur, sit amet lobortis augue elementum.
 
     <string name="no_events">Looks like you haven\'t registered for any events yet.</string>
     <string name="no_internet">Looks like you aren\'t connected to the Internet.</string>
+    <string name="my_events">My events</string>
 
 
     <!--Strings for login-->

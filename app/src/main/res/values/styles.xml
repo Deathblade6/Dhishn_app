@@ -11,6 +11,13 @@
         <item name="android:textColor">@color/textColor</item>
         <item name="android:textColorHint">@color/textColorHint</item>
         <item name="bottomNavigationStyle">@style/bottomNavigationStyle</item>
+        <item name="android:itemTextAppearance">@style/myCustomMenuTextApearance</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+    </style>
+
+
+    <style name="myCustomMenuTextApearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
 

@@ -313,7 +313,7 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
 
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        activity.getSupportActionBar().setHomeButtonEnabled(false);
+        activity.getSupportActionBar().setHomeButtonEnabled(true);
         activity.getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         setHasOptionsMenu(true);
     }
@@ -375,8 +375,10 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             Toast.makeText(getContext(), "Pressed", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getContext(),MainActivity.class);
-            startActivity(intent);        }
+//            Intent intent = new Intent(getContext(),MainActivity.class);
+//            startActivity(intent);
+            getActivity().onBackPressed();
+        }
 
         return super.onOptionsItemSelected(item);
     }

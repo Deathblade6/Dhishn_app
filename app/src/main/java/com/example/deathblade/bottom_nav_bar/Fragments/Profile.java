@@ -19,6 +19,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -28,10 +31,9 @@ import com.example.deathblade.bottom_nav_bar.Adaptersnextra.Event;
 import com.example.deathblade.bottom_nav_bar.Adaptersnextra.EventsAdapter;
 import com.example.deathblade.bottom_nav_bar.MainActivity;
 import com.example.deathblade.bottom_nav_bar.R;
-import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -45,12 +47,10 @@ public class Profile extends Fragment {
     ArrayList<Event> mEvents;
     EventsAdapter mAdapter;
     String uid = "He2diL0fwtZ7mqm70o2CXNLeJke2";
-    ArrayList<Event> mEventsLists;
     CollapsingToolbarLayout toolbarLayout;
     EventsAdapter mEventAdapters = new EventsAdapter();
     private static final String MY_PREFS_NAME = "pref";
     private static final String UID_KEY = "uid";
-    private View mLoginFormView;
     private ImageView mProgressView;
     private TextView mProgressTextView;
     private View mEmptyView;
@@ -64,6 +64,20 @@ public class Profile extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.options, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.sign_out)
+            FirebaseAuth.getInstance().signOut();
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -81,16 +95,13 @@ public class Profile extends Fragment {
 
 
         mRecyclerView = view.findViewById(R.id.profile_events);
-        mLoginFormView = view.findViewById(R.id.profile_events);
         mProgressView = view.findViewById(R.id.login_progress);
         mProgressTextView = view.findViewById(R.id.text_progress);
-        mEmptyView = view.findViewById(R.id.profile_empty_view);
         mNoConnectionView = view.findViewById(R.id.profile_no_connection);
+        mEmptyView = view.findViewById(R.id.profile_empty_view);
 
         showProgress(true);
 
-        if (!isNetworkConnected())
-            showNoConnectionView(true);
 
         mEvents = new ArrayList<>();
         mAdapter = new EventsAdapter(mEvents, true);
@@ -99,18 +110,13 @@ public class Profile extends Fragment {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
 
-        prepareProfile();
+        if (!isNetworkConnected())
+            showNoConnectionView(true);
+        else
+            prepareProfile();
         return view;
     }
 
-    private ArrayList<Event> placeHolderEvents() {
-        ArrayList<Event> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            String x = "Caption_" + i;
-            list.add(new Event("Event Name", x));
-        }
-        return list;
-    }
 
     private void setupActionBar(Toolbar toolbar) {
         MainActivity activity = (MainActivity) getActivity();
@@ -132,7 +138,8 @@ public class Profile extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String s = " ";
                 s += (String) dataSnapshot.child("name").getValue();
-                Log.e("ASDASD", s);
+                if (s == null)
+                    Log.e("ASDASD", s);
                 toolbarLayout.setTitle(s);
                 showProgress(false);
                 for (DataSnapshot event : dataSnapshot.child("events").getChildren()) {
@@ -144,13 +151,12 @@ public class Profile extends Fragment {
                 }
 
                 mEmptyView.setVisibility(mEvents.isEmpty() ? View.VISIBLE : View.GONE);
-                mLoginFormView.setVisibility(mEvents.isEmpty() ? View.GONE : View.VISIBLE);
+                mRecyclerView.setVisibility(mEvents.isEmpty() ? View.GONE : View.VISIBLE);
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                showNoConnectionView(true);
             }
 
 
@@ -160,7 +166,7 @@ public class Profile extends Fragment {
 
 
     private void showNoConnectionView(boolean show) {
-        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
         mProgressTextView.setVisibility(show ? View.GONE : View.VISIBLE);
         mProgressView.setVisibility(show ? View.GONE : View.VISIBLE);
         mNoConnectionView.setVisibility(show ? View.VISIBLE : View.GONE);
@@ -169,11 +175,11 @@ public class Profile extends Fragment {
     private void showProgress(final boolean show) {
         int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+        mRecyclerView.animate().setDuration(shortAnimTime).alpha(
                 show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
             }
         });
 

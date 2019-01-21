@@ -80,7 +80,6 @@ public class FlagshipAdapter extends RecyclerView.Adapter<FlagshipAdapter.Flagsh
         flagshipHolder.titleTextView.setText(event.getmTitle());
         flagshipHolder.titleTextView.setTag(i);
         flagshipHolder.itemView.setTransitionName("flagship" + i);
-        Log.d(LOG_TAG, "View holder bound" + viewHolderList.size());
     }
 
     @Override
@@ -88,7 +87,6 @@ public class FlagshipAdapter extends RecyclerView.Adapter<FlagshipAdapter.Flagsh
         super.onViewAttachedToWindow(holder);
         viewHolderList.add(holder);
         currentPos = holder.getAdapterPosition();
-        Log.d(LOG_TAG, "View holder attached" + viewHolderList.size());
     }
 
     public int getCurrentPos() {
