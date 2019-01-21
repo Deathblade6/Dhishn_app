@@ -24,6 +24,8 @@
             app:contentScrim="#6B169E"
             app:expandedTitleGravity="center_horizontal|top"
             app:expandedTitleMarginTop="8dp"
+            app:collapsedTitleGravity="top"
+            app:titleEnabled="true"
             app:expandedTitleTextAppearance="@style/CollapseTextStyle"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 

@@ -27,7 +27,7 @@
             app:expandedTitleTextAppearance="@style/CollapseTextStyle"
             app:collapsedTitleTextAppearance="@style/CollapseTextStyle"
             app:expandedTitleGravity="center_horizontal|top"
-            app:collapsedTitleGravity="left"
+            app:collapsedTitleGravity="left|top"
             app:contentScrim="@color/colorPrimary"
             android:transitionName="@string/transition_string"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">

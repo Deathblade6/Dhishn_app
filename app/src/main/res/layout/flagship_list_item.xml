@@ -3,14 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp">
+    android:layout_height="250dp">
 
     <RelativeLayout
-        android:background="@drawable/cardbgm"
+        android:background="@drawable/event_head"
         android:layout_width="match_parent"
         android:id="@+id/layout_with_bg"
         android:transitionName="@string/transition_string"
         android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/event_head_overlay_vector"/>
 
         <TextView
             android:layout_width="wrap_content"
