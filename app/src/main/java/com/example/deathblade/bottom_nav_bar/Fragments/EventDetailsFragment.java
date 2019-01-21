@@ -29,13 +29,8 @@ import com.example.deathblade.bottom_nav_bar.R;
 
 public class EventDetailsFragment extends android.support.v4.app.Fragment {
 
-    OnOpened mcallback;
-    Activity activity;
     public EventDetailsFragment() {
         // Required empty public constructor
-    }
-    public interface OnOpened{
-       public void setclose(); // hide bottom bar when photo is opened
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,14 +45,6 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.event_details_layout, container, false);
-        try {
-            ((OnOpened) activity).setclose();
-            Log.e("2121212","121231314");
-        }
-        catch (Exception e){
-            Log.e("23232323","99999999999999999999");
-            e.printStackTrace();
-        }
         Bundle bundle = getArguments();
         Event event = (Event) bundle.getSerializable("event");
         String title = event.getmTitle();
@@ -377,8 +364,11 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
             Toast.makeText(getContext(), "Pressed", Toast.LENGTH_SHORT).show();
 //            Intent intent = new Intent(getContext(),MainActivity.class);
 //            startActivity(intent);
-            getActivity().onBackPressed();
+//            getActivity().onBackPressed();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ListFragment()).commit();
+
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -386,7 +376,6 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.activity=activity;
     }
 
     @Override

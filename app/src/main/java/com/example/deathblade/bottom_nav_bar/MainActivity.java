@@ -25,7 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity implements EventDetailsFragment.OnOpened {
+public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
     public BottomNavigationView navigation;
@@ -36,12 +36,21 @@ public class MainActivity extends AppCompatActivity implements EventDetailsFragm
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private static final int RC_SIGN_IN = 1;
+    private boolean isNavHidden = false;
 
     @Override
     public void onAttachFragment(Fragment fragment) {
         if (fragment instanceof EventDetailsFragment) {
             EventDetailsFragment headlinesFragment = (EventDetailsFragment) fragment;
+            navigation.animate().translationY(navigation.getHeight()).setDuration(300).start();
+            isNavHidden = true;
+        } else {
+            if (isNavHidden){
+                isNavHidden = false;
+                navigation.animate().translationY(0).setDuration(300).start();
+            }
         }
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -101,14 +110,6 @@ public class MainActivity extends AppCompatActivity implements EventDetailsFragm
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new ListFragment()).commit();
-    }
-
-    @Override
-    public void setclose() {
-        navigation.clearAnimation();
-        Log.e("LOOKKIIEI","HEERERERE");
-        Toast.makeText(this,"Working here",Toast.LENGTH_SHORT).show();
-        navigation.animate().translationY(navigation.getHeight()).setDuration(300);
     }
 
     @Override
