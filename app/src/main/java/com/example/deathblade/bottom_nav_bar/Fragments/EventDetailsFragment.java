@@ -36,6 +36,7 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(R.transition.shared));
+        setRetainInstance(true);
 
     }
 
@@ -140,7 +141,7 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
 
     }
 
-    private void populateViews(Event event, View view) {
+    private void populateViews(final Event event, View view) {
         String prize1 = event.getmPrize1();
         String prize2 = event.getmPrize2();
         String prize3 = event.getmPrize3();
@@ -174,6 +175,19 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
         CardView coordinatorContainer = view.findViewById(R.id.coordinator_container);
         CardView rulesCard = view.findViewById(R.id.rules_card);
         CardView rulesTitleCard = view.findViewById(R.id.rules_title_card);
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), event.getmInstaLink(), Toast.LENGTH_SHORT).show();
+                String url = event.getmInstaLink();
+                if (! url.equals("")){
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                }
+            }
+        });
 
         String fee = event.getmFee();
         if (fee.matches("[0-9]+"))

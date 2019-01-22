@@ -254,7 +254,6 @@ public class ListFragment extends Fragment {
         getFragmentManager().beginTransaction()
                 .addSharedElement(view, transName)
                 .replace(R.id.frame_layout, nextPage)
-                .addToBackStack("tab")
                 .commit();
     }
 
@@ -305,6 +304,7 @@ public class ListFragment extends Fragment {
                             , (String) event.child("prize3").getValue()
                             , (String) event.child("fee").getValue()
                             , (String) event.child("registration").getValue()
+                            , (String) event.child("insta").getValue()
                             , coordinators.get(0)
                             , coordinators.get(1)));
 //                        Log.e("Event:", event.getKey() );
@@ -352,6 +352,7 @@ public class ListFragment extends Fragment {
                                 , (String) event.child("prize3").getValue()
                                 , (String) event.child("fee").getValue()
                                 , (String) event.child("registration").getValue()
+                                , (String) event.child("insta").getValue()
                                 , coordinators.get(0)
                                 , coordinators.get(1)));
 //                        Log.e("Event:", event.getKey() );
@@ -415,6 +416,7 @@ public class ListFragment extends Fragment {
             avd = AnimatedVectorDrawableCompat.create(mProgressTextView.getContext(), R.drawable.logo_loading_vector_white);
             mProgressView.setImageDrawable(avd);
         }
+
 
 
     }

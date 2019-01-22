@@ -54,6 +54,7 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppThemeActionBar);
         setContentView(R.layout.activity_registration);
 
         // Set up the UI elements.
