@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppThemeActionBar);
         setContentView(R.layout.activity_login);
 
 
@@ -237,12 +238,12 @@ public class LoginActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         setResult(RESULT_CANCELED);
+        avd.stop();
+        avd.clearAnimationCallbacks();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        avd.stop();
-        avd.clearAnimationCallbacks();
     }
 }

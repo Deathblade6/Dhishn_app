@@ -100,7 +100,8 @@ public class Profile extends Fragment {
         mNoConnectionView = view.findViewById(R.id.profile_no_connection);
         mEmptyView = view.findViewById(R.id.profile_empty_view);
 
-        showProgress(true);
+        if (isAdded())
+            showProgress(true);
 
 
         mEvents = new ArrayList<>();
@@ -141,7 +142,8 @@ public class Profile extends Fragment {
                 if (s == null)
                     Log.e("ASDASD", s);
                 toolbarLayout.setTitle(s);
-                showProgress(false);
+                if (isAdded())
+                    showProgress(false);
                 for (DataSnapshot event : dataSnapshot.child("events").getChildren()) {
                     mEvents.add(new Event(event.getKey()
                             , (String) event.getValue()));

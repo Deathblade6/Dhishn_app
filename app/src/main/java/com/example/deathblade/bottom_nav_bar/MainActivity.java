@@ -37,17 +37,21 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private static final int RC_SIGN_IN = 1;
     private boolean isNavHidden = false;
+    private boolean anyFragmentAttached = false;
 
     @Override
     public void onAttachFragment(Fragment fragment) {
+        anyFragmentAttached = true;
         if (fragment instanceof EventDetailsFragment) {
             EventDetailsFragment headlinesFragment = (EventDetailsFragment) fragment;
-            navigation.animate().translationY(navigation.getHeight()).setDuration(300).start();
+            if (navigation != null)
+                navigation.animate().translationY(navigation.getHeight()).setDuration(300).start();
             isNavHidden = true;
         } else {
-            if (isNavHidden){
+            if (isNavHidden) {
                 isNavHidden = false;
-                navigation.animate().translationY(0).setDuration(300).start();
+                if (navigation != null)
+                    navigation.animate().translationY(0).setDuration(300).start();
             }
         }
 
@@ -58,21 +62,21 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            if (item.getItemId() != currentID){
+            if (item.getItemId() != currentID) {
                 currentID = item.getItemId();
                 switch (item.getItemId()) {
                     case R.id.events:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new ListFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ListFragment()).commit();
                         return true;
                     case R.id.qr:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new QR_fragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new QR_fragment()).commit();
                         return true;
                     case R.id.notification:
 //                    mTextMessage.setText("Live feed");
                         return true;
                     case R.id.profile:
 //                    mTextMessage.setText("Profile");
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new Profile()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new Profile()).commit();
                         return true;
                 }
 
@@ -89,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTextMessage = (TextView) findViewById(R.id.message);
-        FirebaseApp.initializeApp(this);        mAuth = FirebaseAuth.getInstance();
+        FirebaseApp.initializeApp(this);
+        mAuth = FirebaseAuth.getInstance();
 
         /**
          * Checks if the user is logged in. If not, sends them to the login screen.
@@ -109,7 +114,10 @@ public class MainActivity extends AppCompatActivity {
 //        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new ListFragment()).commit();
+        String s = getSupportFragmentManager().isStateSaved() ? "stateSaved" : "notSaved";
+        Log.e(LOG_TAG, s);
+        if (!anyFragmentAttached)
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ListFragment()).commit();
     }
 
     @Override
@@ -131,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_CANCELED)
                 finish();
-            if (resultCode == RESULT_OK){
+            if (resultCode == RESULT_OK) {
                 String uid = mAuth.getUid();
                 SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                 editor.putString(UID_KEY, uid);
