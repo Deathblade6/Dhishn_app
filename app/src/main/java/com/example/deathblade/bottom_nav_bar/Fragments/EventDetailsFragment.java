@@ -5,8 +5,10 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.CardView;
@@ -26,9 +28,16 @@ import android.widget.Toast;
 import com.example.deathblade.bottom_nav_bar.Adaptersnextra.Event;
 import com.example.deathblade.bottom_nav_bar.MainActivity;
 import com.example.deathblade.bottom_nav_bar.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class EventDetailsFragment extends android.support.v4.app.Fragment {
-
+    private static final String UID_KEY = "uid";
+    private static final String MY_PREFS_NAME = "pref";
+    SharedPreferences prefs;
     public EventDetailsFragment() {
         // Required empty public constructor
     }
@@ -49,7 +58,7 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
         Bundle bundle = getArguments();
         Event event = (Event) bundle.getSerializable("event");
         String title = event.getmTitle();
-
+        prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         CollapsingToolbarLayout toolbarLayout = view.findViewById(R.id.collapsing);
         TabLayout tabLayout = view.findViewById(R.id.tab);
@@ -167,7 +176,7 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
         TextView feesText = view.findViewById(R.id.reg_fee_text_view);
         TextView statusText = view.findViewById(R.id.reg_status_text_view);
         CardView registerButton = view.findViewById(R.id.register_btn);
-        CardView prizeCardOne = view.findViewById(R.id.prize_one_card);
+            CardView prizeCardOne = view.findViewById(R.id.prize_one_card);
         CardView prizeCardTwo = view.findViewById(R.id.prize_two_card);
         CardView prizeCardThree = view.findViewById(R.id.prize_three_card);
         CardView coordinatorCardOne = view.findViewById(R.id.coordinator_card_one);
@@ -179,13 +188,34 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), event.getmInstaLink(), Toast.LENGTH_SHORT).show();
-                String url = event.getmInstaLink();
-                if (! url.equals("")){
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    startActivity(i);
+//                Toast.makeText(getContext(), event.getmInstaLink(), Toast.LENGTH_SHORT).show();
+                final String[] url = {event.getmInstaLink()};
+                String uid = prefs.getString(UID_KEY, "");
+                FirebaseDatabase userreference = FirebaseDatabase.getInstance();
+                DatabaseReference user = userreference.getReference().child("users").child(uid);
+                url[0]+="?";
+                Log.e("uid=",event.getmInstaUID());
+                if (!event.getmInstaUID().equals("")){
+                    Toast.makeText(getContext(),"uid="+event.getmInstaUID(),Toast.LENGTH_SHORT).show();
+                    url[0] +="data_"+event.getmInstaUID()+"=" + uid + "&data_readonly=data_"+ event.getmInstaUID();
                 }
+                user.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        url[0] +="&data_name="+(String) dataSnapshot.child("name").getValue();
+                        url[0] +="&data_email="+(String) dataSnapshot.child("email").getValue();
+                        url[0] +="&data_phone="+(String) dataSnapshot.child("phone").getValue();
+                        url[0] +="&data_readonly=data_name&data_readonly=data_email&data_readonly=data_phone";
+                        if (! url[0].equals("")){
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(url[0]));
+                            startActivity(i);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
             }
         });
 

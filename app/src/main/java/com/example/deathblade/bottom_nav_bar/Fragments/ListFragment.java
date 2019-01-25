@@ -378,12 +378,13 @@ public class ListFragment extends Fragment {
                                                 , (String) event.child("insta").getValue()
                                                 , coordinators.get(0)
                                                 , coordinators.get(1)
-                                                , drawable[0]));
+                                                , drawable[0]
+                                                , (String) event.child("insta_uid").getValue()));
 
                                         mEventAdapters[cur].notifyDataSetChanged();
                                     }
                                     else {
-                                        Toast.makeText(getContext(),"Not working ",Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(getContext(),"Not working ",Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
