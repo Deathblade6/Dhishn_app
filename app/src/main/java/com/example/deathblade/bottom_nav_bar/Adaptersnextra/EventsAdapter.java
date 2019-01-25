@@ -4,11 +4,13 @@ package com.example.deathblade.bottom_nav_bar.Adaptersnextra;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,9 +29,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsHold
     public class EventsHolder extends RecyclerView.ViewHolder {
 
         public TextView titleTextView, messageTextVeiw;
+        public RelativeLayout relativeLayout;
 
         public EventsHolder(@NonNull View itemView) {
             super(itemView);
+            relativeLayout = itemView.findViewById(R.id.layout_with_bg);
             titleTextView = itemView.findViewById(R.id.title_text_view);
             messageTextVeiw = itemView.findViewById(R.id.message_text_view);
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -105,18 +109,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsHold
         viewHolder.titleTextView.setText(event.getmTitle());
         viewHolder.messageTextVeiw.setText(event.getmMessage());
         viewHolder.titleTextView.setTag(i);
+        viewHolder.relativeLayout.setBackground(event.getIcon());
+        Log.e("Adapter", "DoneDeal");
         Animation animation = AnimationUtils.loadAnimation(viewHolder.titleTextView.getContext(),
                 (i > lastPosition) ? R.anim.up_from_bottom
                         : R.anim.down_from_top);
         viewHolder.itemView.startAnimation(animation);
         viewHolder.itemView.setTransitionName("transition" + index + i);
         lastPosition = i;
-
     }
-
-
-
-
+    
     @Override
     public int getItemCount() {
         return eventArrayList.size();

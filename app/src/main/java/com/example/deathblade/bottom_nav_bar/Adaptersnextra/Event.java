@@ -1,5 +1,7 @@
 package com.example.deathblade.bottom_nav_bar.Adaptersnextra;
 
+import android.graphics.drawable.Drawable;
+
 import java.io.Serializable;
 
 public class Event implements Serializable {
@@ -7,8 +9,40 @@ public class Event implements Serializable {
     private String mTitle, mMessage, mDescription, mRules , photoURl;
     private String mPrize1, mPrize2, mPrize3, mFee , mStatus, mInstaLink;
     private Coordinator coordinator1, mCoordinator2;
+    private Drawable icon;
     //TODO: do something about the description of the event.
 
+    public Event(String title, String message, String mDescription, String mRules, String mPrize1, String mPrize2, String mPrize3, String mFee, String mStatus, String mInstaLink, Coordinator coordinator1, Coordinator mCoordinator2,Drawable drawable) {
+        mTitle = title;
+        mMessage = message;
+        this.mDescription = mDescription;
+        this.mRules = mRules;
+//        this.photoURl = photoURl;
+        this.mPrize1 = mPrize1;
+        this.icon=drawable;
+        this.mPrize2 = mPrize2;
+        this.mPrize3 = mPrize3;
+        this.mFee = mFee;
+        this.mStatus = mStatus;
+        this.mInstaLink = mInstaLink;
+        this.coordinator1 = coordinator1;
+        this.mCoordinator2 = mCoordinator2;
+    }
+    public Event(String title, String message, String mDescription, String mRules, String mPrize1, String mPrize2, String mPrize3, String mFee, String mStatus, Coordinator coordinator1, Coordinator mCoordinator2,Drawable icon) {
+        mTitle = title;
+        mMessage = message;
+        this.icon=icon;
+        this.mDescription = mDescription;
+        this.mRules = mRules;
+//        this.photoURl = photoURl;
+        this.mPrize1 = mPrize1;
+        this.mPrize2 = mPrize2;
+        this.mPrize3 = mPrize3;
+        this.mFee = mFee;
+        this.mStatus = mStatus;
+        this.coordinator1 = coordinator1;
+        this.mCoordinator2 = mCoordinator2;
+    }
     public Event(String title, String message, String mDescription, String mRules, String mPrize1, String mPrize2, String mPrize3, String mFee, String mStatus, String mInstaLink, Coordinator coordinator1, Coordinator mCoordinator2) {
         mTitle = title;
         mMessage = message;
@@ -23,17 +57,6 @@ public class Event implements Serializable {
         this.mInstaLink = mInstaLink;
         this.coordinator1 = coordinator1;
         this.mCoordinator2 = mCoordinator2;
-    }
-    public Event(String title, String message, String mDescription, String mRules, String mPrize1, String mPrize2, String mPrize3, String mFee) {
-        mTitle = title;
-        mMessage = message;
-        this.mDescription = mDescription;
-        this.mRules = mRules;
-//        this.photoURl = photoURl;
-        this.mPrize1 = mPrize1;
-        this.mPrize2 = mPrize2;
-        this.mPrize3 = mPrize3;
-        this.mFee = mFee;
     }
 
     public Event(String title , String message){
@@ -96,8 +119,20 @@ public class Event implements Serializable {
         return mStatus;
     }
 
+    public Drawable getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Drawable icon) {
+        this.icon = icon;
+    }
+
     public String getmInstaLink() {
         return mInstaLink;
+    }
+
+    public void setmInstaLink(String mInstaLink) {
+        this.mInstaLink = mInstaLink;
     }
 
 //    public class Coordinator {

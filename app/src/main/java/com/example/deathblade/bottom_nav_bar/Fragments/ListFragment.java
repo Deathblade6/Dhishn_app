@@ -8,6 +8,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -28,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.deathblade.bottom_nav_bar.Adaptersnextra.Coordinator;
 import com.example.deathblade.bottom_nav_bar.Adaptersnextra.CustomLinearLayoutManager;
@@ -37,13 +39,21 @@ import com.example.deathblade.bottom_nav_bar.Adaptersnextra.FlagshipAdapter;
 import com.example.deathblade.bottom_nav_bar.Listeners.RecyclerTouchListener;
 import com.example.deathblade.bottom_nav_bar.MainActivity;
 import com.example.deathblade.bottom_nav_bar.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -294,7 +304,6 @@ public class ListFragment extends Fragment {
                     for (DataSnapshot coordinator : event.child("coordinators").getChildren()) {
                         coordinators.add(coordinator.getValue(Coordinator.class));
                     }
-
                     flagshipEvents.add(new Event(event.getKey()
                             , (String) event.child("caption").getValue()
                             , (String) event.child("description").getValue()
@@ -331,32 +340,59 @@ public class ListFragment extends Fragment {
     private void prepareDepartments() {
         for (int i = 0; i < no_of_dept; i++) {
             final int cur = i;
-            List<String> events = Arrays.asList("ws", "ee", "ec", "ce", "cs", "it", "me", "se");
+            final List<String> events = Arrays.asList("ws", "ee", "ec", "ce", "cs", "it", "me", "se");
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference event_ref = database.getReference().child("events").child(events.get(i));
+
             event_ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot event : dataSnapshot.getChildren()) {
-                        ArrayList<Coordinator> coordinators = new ArrayList<>();
+                    for (final DataSnapshot event : dataSnapshot.getChildren()) {
+                        final Drawable[] drawable = new Drawable[1];
+                        final ArrayList<Coordinator> coordinators = new ArrayList<>();
                         for (DataSnapshot coordinator : event.child("coordinators").getChildren()) {
                             coordinators.add(coordinator.getValue(Coordinator.class));
                         }
+                        try {
+                            final File localfile = File.createTempFile(event.getKey(),".png");
+                            Log.e(LOG_TAG, "Going In");
+                            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("events").child(events.get(cur)).child(event.getKey()).child("event.png");
+                            storageReference.getFile(localfile).addOnCompleteListener(new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
+                                    if (task.isSuccessful()){
+                                        final Uri uri = Uri.parse(localfile.getPath());
+                                        final String pathName=uri.getPath();
+                                        drawable[0] =Drawable.createFromPath(pathName);
+//                                        Toast.makeText(getContext(),"Download done",Toast.LENGTH_SHORT).show();
+                                        Log.e(pathName, "Done");
+                                        mEventsLists[cur].add(new Event(event.getKey()
+                                                , (String) event.child("caption").getValue()
+                                                , (String) event.child("description").getValue()
+                                                , (String) event.child("rules").getValue()
+                                                , (String) event.child("prize1").getValue()
+                                                , (String) event.child("prize2").getValue()
+                                                , (String) event.child("prize3").getValue()
+                                                , (String) event.child("fee").getValue()
+                                                , (String) event.child("registration").getValue()
+                                                , (String) event.child("insta").getValue()
+                                                , coordinators.get(0)
+                                                , coordinators.get(1)
+                                                , drawable[0]));
 
-                        mEventsLists[cur].add(new Event(event.getKey()
-                                , (String) event.child("caption").getValue()
-                                , (String) event.child("description").getValue()
-                                , (String) event.child("rules").getValue()
-                                , (String) event.child("prize1").getValue()
-                                , (String) event.child("prize2").getValue()
-                                , (String) event.child("prize3").getValue()
-                                , (String) event.child("fee").getValue()
-                                , (String) event.child("registration").getValue()
-                                , (String) event.child("insta").getValue()
-                                , coordinators.get(0)
-                                , coordinators.get(1)));
+                                        mEventAdapters[cur].notifyDataSetChanged();
+                                    }
+                                    else {
+                                        Toast.makeText(getContext(),"Not working ",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
+                        }
 //                        Log.e("Event:", event.getKey() );
-                        mEventAdapters[cur].notifyDataSetChanged();
                         //hi
 
                     }
