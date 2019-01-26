@@ -29,7 +29,7 @@ import com.example.deathblade.bottom_nav_bar.MainActivity;
 import com.example.deathblade.bottom_nav_bar.R;
 
 public class EventDetailsFragment extends android.support.v4.app.Fragment {
-
+    String title;
     public EventDetailsFragment() {
         // Required empty public constructor
     }
@@ -49,7 +49,7 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
         final View view = inflater.inflate(R.layout.event_details_layout, container, false);
         Bundle bundle = getArguments();
         Event event = (Event) bundle.getSerializable("event");
-        String title = event.getmTitle();
+        title = event.getmTitle();
 
         ImageView imageView = view.findViewById(R.id.overlay);
         imageView.setImageDrawable(event.getIcon());
@@ -415,10 +415,14 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
-                    Intent intent = new Intent(getContext(),MainActivity.class);
-                    startActivity(intent);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ListFragment()).commit();
                     return true;
                 }
+//                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+//                    Intent intent = new Intent(getContext(),MainActivity.class);
+//                    startActivity(intent);
+//                    return true;
+//                }
                 return false;
             }
         });

@@ -370,6 +370,9 @@ public class ListFragment extends Fragment {
                                         @Override
                                         public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
                                             mTasks.remove(this);
+                                            if (cur >= 2)
+                                                if (isAdded())
+                                                    showProgress(false);
                                             if (task.isSuccessful()) {
                                                 final Uri uri = Uri.parse(localfile.getPath());
                                                 final String pathName = uri.getPath();
@@ -405,8 +408,6 @@ public class ListFragment extends Fragment {
                         //hi
 
                     }
-                    if (isAdded())
-                        showProgress(false);
 
                 }
 

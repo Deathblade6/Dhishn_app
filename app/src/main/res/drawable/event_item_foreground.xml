@@ -10,7 +10,12 @@
             <gradient
                 android:startColor="#c7b299"
                 android:endColor="@android:color/transparent"
+
                 android:angle="270"/>
+            <corners
+                android:topRightRadius="16dp"
+                android:topLeftRadius="16dp"
+                />
         </shape>
     </item>
 </layer-list>
