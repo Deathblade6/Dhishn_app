@@ -1,5 +1,6 @@
 package com.example.deathblade.bottom_nav_bar.Fragments;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -88,7 +89,15 @@ public class QR_fragment extends Fragment {
             } else {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(result.getContents()));
-                startActivity(i);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.setPackage("com.android.chrome");
+                try {
+                    startActivity(i);
+                } catch (ActivityNotFoundException ex) {
+                    // Chrome browser presumably not installed so allow user to choose instead
+                    i.setPackage(null);
+                    startActivity(i);
+                }
             }
         }
     }
