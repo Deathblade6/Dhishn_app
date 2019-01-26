@@ -1,14 +1,20 @@
 package com.example.deathblade.bottom_nav_bar.Fragments;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.deathblade.bottom_nav_bar.R;
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 
 public class QR_fragment extends Fragment {
@@ -59,7 +65,7 @@ public class QR_fragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view =  inflater.inflate(R.layout.fragment_qr_fragment, container, false);
-        Button button = view.findViewById(R.id.click);
+        ImageView button = view.findViewById(R.id.click);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,5 +80,25 @@ public class QR_fragment extends Fragment {
         IntentIntegrator.forSupportFragment(this).initiateScan();
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() == null) {
+                Log.e( "Status=","Cancelled from fragment");
+            } else {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(result.getContents()));
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.setPackage("com.android.chrome");
+                try {
+                    startActivity(i);
+                } catch (ActivityNotFoundException ex) {
+                    // Chrome browser presumably not installed so allow user to choose instead
+                    i.setPackage(null);
+                    startActivity(i);
+                }
+            }
+        }
+    }
 }

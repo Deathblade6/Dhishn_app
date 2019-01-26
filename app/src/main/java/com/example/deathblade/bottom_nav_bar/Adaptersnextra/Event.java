@@ -7,12 +7,13 @@ import java.io.Serializable;
 public class Event implements Serializable {
 
     private String mTitle, mMessage, mDescription, mRules , photoURl;
-    private String mPrize1, mPrize2, mPrize3, mFee , mStatus, mInstaLink;
+    private String mPrize1, mPrize2, mPrize3, mFee , mStatus, mInstaLink , mInstaUID;
     private Coordinator coordinator1, mCoordinator2;
     private Drawable icon;
+
     //TODO: do something about the description of the event.
 
-    public Event(String title, String message, String mDescription, String mRules, String mPrize1, String mPrize2, String mPrize3, String mFee, String mStatus, String mInstaLink, Coordinator coordinator1, Coordinator mCoordinator2,Drawable drawable) {
+    public Event(String title, String message, String mDescription, String mRules, String mPrize1, String mPrize2, String mPrize3, String mFee, String mStatus, String mInstaLink, Coordinator coordinator1, Coordinator mCoordinator2,Drawable drawable , String mInstaUID) {
         mTitle = title;
         mMessage = message;
         this.mDescription = mDescription;
@@ -27,6 +28,7 @@ public class Event implements Serializable {
         this.mInstaLink = mInstaLink;
         this.coordinator1 = coordinator1;
         this.mCoordinator2 = mCoordinator2;
+        this.mInstaUID = mInstaUID;
     }
     public Event(String title, String message, String mDescription, String mRules, String mPrize1, String mPrize2, String mPrize3, String mFee, String mStatus, Coordinator coordinator1, Coordinator mCoordinator2,Drawable icon) {
         mTitle = title;
@@ -133,6 +135,14 @@ public class Event implements Serializable {
 
     public void setmInstaLink(String mInstaLink) {
         this.mInstaLink = mInstaLink;
+    }
+
+    public String getmInstaUID() {
+        return mInstaUID;
+    }
+
+    public void setmInstaUID(String mInstaUID) {
+        this.mInstaUID = mInstaUID;
     }
 
 //    public class Coordinator {
