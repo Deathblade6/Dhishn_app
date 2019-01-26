@@ -51,6 +51,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 
 import java.io.File;
 import java.security.spec.ECField;
@@ -88,12 +89,20 @@ public class ListFragment extends Fragment {
     private TextView mProgressTextView;
     private View mNoConnectionView;
     private Toolbar mToolbar;
+    private ValueEventListener mEventDataListener;
+    private OnCompleteListener<FileDownloadTask.TaskSnapshot> mEventIconListener;
+    private DatabaseReference event_ref;
+    private StorageReference storageReference;
+    private StorageTask<FileDownloadTask.TaskSnapshot> mIconDownloadTask;
+    private ArrayList<StorageTask<FileDownloadTask.TaskSnapshot>> mTasks;
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.options, menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.sign_out)
@@ -114,7 +123,9 @@ public class ListFragment extends Fragment {
         mNoConnectionView = view.findViewById(R.id.profile_no_connection);
         mToolbar = view.findViewById(R.id.toolbar);
 
-        if (isAdded()){
+        mTasks = new ArrayList<>();
+
+        if (isAdded()) {
             MainActivity activity = (MainActivity) getActivity();
             activity.setSupportActionBar(mToolbar);
 
@@ -321,8 +332,6 @@ public class ListFragment extends Fragment {
                     //hi
 
                 }
-                if (isAdded())
-                    showProgress(false);
             }
 
             @Override
@@ -342,9 +351,8 @@ public class ListFragment extends Fragment {
             final int cur = i;
             final List<String> events = Arrays.asList("ws", "ee", "ec", "ce", "cs", "it", "me", "se");
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference event_ref = database.getReference().child("events").child(events.get(i));
-
-            event_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            event_ref = database.getReference().child("events").child(events.get(i));
+            event_ref.addListenerForSingleValueEvent(mEventDataListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (final DataSnapshot event : dataSnapshot.getChildren()) {
@@ -354,48 +362,52 @@ public class ListFragment extends Fragment {
                             coordinators.add(coordinator.getValue(Coordinator.class));
                         }
                         try {
-                            final File localfile = File.createTempFile(event.getKey(),".png");
+                            final File localfile = File.createTempFile(event.getKey(), ".png");
                             Log.e(LOG_TAG, "Going In");
-                            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("events").child(events.get(cur)).child(event.getKey()).child("event.png");
-                            storageReference.getFile(localfile).addOnCompleteListener(new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
-                                    if (task.isSuccessful()){
-                                        final Uri uri = Uri.parse(localfile.getPath());
-                                        final String pathName=uri.getPath();
-                                        drawable[0] =Drawable.createFromPath(pathName);
+                            storageReference = FirebaseStorage.getInstance().getReference().child("events").child(events.get(cur)).child(event.getKey()).child("event.png");
+                            mIconDownloadTask = storageReference.getFile(localfile)
+                                    .addOnCompleteListener(mEventIconListener = new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
+                                            mTasks.remove(this);
+                                            if (task.isSuccessful()) {
+                                                final Uri uri = Uri.parse(localfile.getPath());
+                                                final String pathName = uri.getPath();
+                                                drawable[0] = Drawable.createFromPath(pathName);
 //                                        Toast.makeText(getContext(),"Download done",Toast.LENGTH_SHORT).show();
-                                        Log.e(pathName, "Done");
-                                        mEventsLists[cur].add(new Event(event.getKey()
-                                                , (String) event.child("caption").getValue()
-                                                , (String) event.child("description").getValue()
-                                                , (String) event.child("rules").getValue()
-                                                , (String) event.child("prize1").getValue()
-                                                , (String) event.child("prize2").getValue()
-                                                , (String) event.child("prize3").getValue()
-                                                , (String) event.child("fee").getValue()
-                                                , (String) event.child("registration").getValue()
-                                                , (String) event.child("insta").getValue()
-                                                , coordinators.get(0)
-                                                , coordinators.get(1)
-                                                , drawable[0]));
+                                                Log.e(pathName, "Done");
+                                                mEventsLists[cur].add(new Event(event.getKey()
+                                                        , (String) event.child("caption").getValue()
+                                                        , (String) event.child("description").getValue()
+                                                        , (String) event.child("rules").getValue()
+                                                        , (String) event.child("prize1").getValue()
+                                                        , (String) event.child("prize2").getValue()
+                                                        , (String) event.child("prize3").getValue()
+                                                        , (String) event.child("fee").getValue()
+                                                        , (String) event.child("registration").getValue()
+                                                        , (String) event.child("insta").getValue()
+                                                        , coordinators.get(0)
+                                                        , coordinators.get(1)
+                                                        , drawable[0]));
 
-                                        mEventAdapters[cur].notifyDataSetChanged();
-                                    }
-                                    else {
-                                        Toast.makeText(getContext(),"Not working ",Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
+                                                mEventAdapters[cur].notifyItemInserted(mEventsLists[cur].size() - 1);
+                                            } else {
+                                                Log.e(LOG_TAG, "NotWorking");
+//                                                Toast.makeText(getContext(), "Not working ", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
 
-                        }
-                        catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 //                        Log.e("Event:", event.getKey() );
                         //hi
 
                     }
+                    if (isAdded())
+                        showProgress(false);
+
                 }
 
                 @Override
@@ -404,6 +416,7 @@ public class ListFragment extends Fragment {
 
 
             });
+            mTasks.add(mIconDownloadTask);
             mEventAdapters[i].notifyDataSetChanged();
         }
 
@@ -454,7 +467,6 @@ public class ListFragment extends Fragment {
         }
 
 
-
     }
 
     private boolean isNetworkConnected() {
@@ -477,8 +489,15 @@ public class ListFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        if (isConnected)
+        if (isConnected) {
             mTimer.cancel();
+            if (event_ref != null && mEventDataListener != null)
+                event_ref.removeEventListener(mEventDataListener);
+            for (int i = 0; i < mTasks.size(); i++)
+                if (mTasks.get(i) != null)
+                    mTasks.get(i).pause();
+
+        }
     }
 
     @Override

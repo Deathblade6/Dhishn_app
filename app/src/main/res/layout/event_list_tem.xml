@@ -21,15 +21,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
+            android:visibility="gone"
             android:src="@drawable/event_head_overlay_vector"/>
 
         <TextView
             android:layout_margin="8dp"
             android:id="@+id/title_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:paddingTop="8dp"
+            android:background="@drawable/event_item_foreground"
+            android:textSize="18sp"
             android:textColor="@android:color/white"
+            android:layout_alignParentTop="true"
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:textAllCaps="true"
             android:textStyle="bold"
             tools:text="Title"/>
 
@@ -38,6 +45,7 @@
             android:id="@+id/message_text_view"
             android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
+            android:visibility="gone"
             android:textColor="@android:color/white"
             android:layout_height="wrap_content"
             tools:text="Message"/>

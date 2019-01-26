@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,9 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
         Bundle bundle = getArguments();
         Event event = (Event) bundle.getSerializable("event");
         String title = event.getmTitle();
+
+        ImageView imageView = view.findViewById(R.id.overlay);
+        imageView.setImageDrawable(event.getIcon());
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         CollapsingToolbarLayout toolbarLayout = view.findViewById(R.id.collapsing);
