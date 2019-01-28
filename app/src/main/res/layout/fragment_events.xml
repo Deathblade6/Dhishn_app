@@ -16,8 +16,8 @@
         android:fitsSystemWindows="true"
         android:orientation="vertical">
 
-        <!--app:contentScrim="#6B169E"-->
-        <!--app:expandedTitleGravity="center_horizontal|top"-->
+        <!--The title does shitty things coz of the code in main activity-->
+        <!--Set fitSystemWindows = true there-->
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing"
             android:layout_width="match_parent"
@@ -27,7 +27,6 @@
             app:expandedTitleTextAppearance="@style/CollapseTextStyle"
             app:collapsedTitleTextAppearance="@style/CollapseTextStyle"
             app:expandedTitleGravity="center_horizontal|top"
-            app:collapsedTitleGravity="left|top"
             app:contentScrim="@color/colorPrimary"
             android:transitionName="@string/transition_string"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
