@@ -49,11 +49,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsHold
 
 
     /**
-     *
      * @param eventArrayList
-     * @param forProfile true if this is for the porfile page
+     * @param forProfile     true if this is for the porfile page
      */
-    public EventsAdapter(ArrayList<Event> eventArrayList , boolean forProfile) {
+    public EventsAdapter(ArrayList<Event> eventArrayList, boolean forProfile) {
         this.eventArrayList = eventArrayList;
         if (forProfile)
             layoutID = R.layout.profile_list_item;
@@ -82,7 +81,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsHold
         return eventArrayList;
     }
 
-    public Event getEventAtIndex(int i){
+    public Event getEventAtIndex(int i) {
         return eventArrayList.get(i);
     }
 
@@ -109,7 +108,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsHold
         viewHolder.titleTextView.setText(event.getmTitle());
         viewHolder.messageTextVeiw.setText(event.getmMessage());
         viewHolder.titleTextView.setTag(i);
-        viewHolder.relativeLayout.setBackground(event.getIcon());
+        if (event.getIcon() != null)
+            viewHolder.relativeLayout.setBackground(event.getIcon());
         Log.e("Adapter", "DoneDeal");
         Animation animation = AnimationUtils.loadAnimation(viewHolder.titleTextView.getContext(),
                 (i > lastPosition) ? R.anim.up_from_bottom
@@ -118,7 +118,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsHold
         viewHolder.itemView.setTransitionName("transition" + index + i);
         lastPosition = i;
     }
-    
+
     @Override
     public int getItemCount() {
         return eventArrayList.size();

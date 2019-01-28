@@ -30,10 +30,9 @@ public class Event implements Serializable {
         this.mCoordinator2 = mCoordinator2;
         this.mInstaUID = mInstaUID;
     }
-    public Event(String title, String message, String mDescription, String mRules, String mPrize1, String mPrize2, String mPrize3, String mFee, String mStatus, Coordinator coordinator1, Coordinator mCoordinator2,Drawable icon) {
+    public Event(String title, String message, String mDescription, String mRules, String mPrize1, String mPrize2, String mPrize3, String mFee, String mStatus, String mInstaLink, Coordinator coordinator1, Coordinator mCoordinator2, String mInstaUID) {
         mTitle = title;
         mMessage = message;
-        this.icon=icon;
         this.mDescription = mDescription;
         this.mRules = mRules;
 //        this.photoURl = photoURl;
@@ -42,8 +41,10 @@ public class Event implements Serializable {
         this.mPrize3 = mPrize3;
         this.mFee = mFee;
         this.mStatus = mStatus;
+        this.mInstaLink = mInstaLink;
         this.coordinator1 = coordinator1;
         this.mCoordinator2 = mCoordinator2;
+        this.mInstaUID = mInstaUID;
     }
     public Event(String title, String message, String mDescription, String mRules, String mPrize1, String mPrize2, String mPrize3, String mFee, String mStatus, String mInstaLink, Coordinator coordinator1, Coordinator mCoordinator2) {
         mTitle = title;
@@ -51,6 +52,7 @@ public class Event implements Serializable {
         this.mDescription = mDescription;
         this.mRules = mRules;
 //        this.photoURl = photoURl;
+        icon = null;
         this.mPrize1 = mPrize1;
         this.mPrize2 = mPrize2;
         this.mPrize3 = mPrize3;

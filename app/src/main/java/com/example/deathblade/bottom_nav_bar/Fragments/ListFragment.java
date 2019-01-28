@@ -361,6 +361,23 @@ public class ListFragment extends Fragment {
                         for (DataSnapshot coordinator : event.child("coordinators").getChildren()) {
                             coordinators.add(coordinator.getValue(Coordinator.class));
                         }
+                        final Event newEvent = new Event(event.getKey()
+                                , (String) event.child("caption").getValue()
+                                , (String) event.child("description").getValue()
+                                , (String) event.child("rules").getValue()
+                                , (String) event.child("prize1").getValue()
+                                , (String) event.child("prize2").getValue()
+                                , (String) event.child("prize3").getValue()
+                                , (String) event.child("fee").getValue()
+                                , (String) event.child("registration").getValue()
+                                , (String) event.child("insta").getValue()
+                                , coordinators.get(0)
+                                , coordinators.get(1)
+                                , (String) event.child("insta_uid").getValue());
+                        mEventsLists[cur].add(newEvent);
+                        final int pos = mEventsLists[cur].size() - 1;
+                        mEventAdapters[cur].notifyItemInserted(pos);
+
                         try {
                             final File localfile = File.createTempFile(event.getKey(), ".png");
                             Log.e(LOG_TAG, "Going In");
@@ -370,31 +387,15 @@ public class ListFragment extends Fragment {
                                         @Override
                                         public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
                                             mTasks.remove(this);
-                                            if (cur >= 2)
-                                                if (isAdded())
-                                                    showProgress(false);
                                             if (task.isSuccessful()) {
                                                 final Uri uri = Uri.parse(localfile.getPath());
                                                 final String pathName = uri.getPath();
                                                 drawable[0] = Drawable.createFromPath(pathName);
 //                                        Toast.makeText(getContext(),"Download done",Toast.LENGTH_SHORT).show();
                                                 Log.e(pathName, "Done");
-                                                mEventsLists[cur].add(new Event(event.getKey()
-                                                        , (String) event.child("caption").getValue()
-                                                        , (String) event.child("description").getValue()
-                                                        , (String) event.child("rules").getValue()
-                                                        , (String) event.child("prize1").getValue()
-                                                        , (String) event.child("prize2").getValue()
-                                                        , (String) event.child("prize3").getValue()
-                                                        , (String) event.child("fee").getValue()
-                                                        , (String) event.child("registration").getValue()
-                                                        , (String) event.child("insta").getValue()
-                                                        , coordinators.get(0)
-                                                        , coordinators.get(1)
-                                                        , drawable[0]
-                                                        , (String) event.child("insta_uid").getValue()));
+                                                newEvent.setIcon(drawable[0]);
+                                                mEventAdapters[cur].notifyItemChanged(pos);
 
-                                                mEventAdapters[cur].notifyItemInserted(mEventsLists[cur].size() - 1);
                                             } else {
                                                 Log.e(LOG_TAG, "NotWorking");
 //                                                Toast.makeText(getContext(), "Not working ", Toast.LENGTH_SHORT).show();
@@ -410,6 +411,8 @@ public class ListFragment extends Fragment {
 
                     }
 
+                    if (isAdded())
+                        showProgress(false);
                 }
 
                 @Override
