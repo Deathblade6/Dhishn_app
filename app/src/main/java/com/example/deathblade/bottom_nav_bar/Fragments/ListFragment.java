@@ -391,7 +391,8 @@ public class ListFragment extends Fragment {
                                                         , (String) event.child("insta").getValue()
                                                         , coordinators.get(0)
                                                         , coordinators.get(1)
-                                                        , drawable[0]));
+                                                        , drawable[0]
+                                                        , (String) event.child("insta_uid").getValue()));
 
                                                 mEventAdapters[cur].notifyItemInserted(mEventsLists[cur].size() - 1);
                                             } else {
