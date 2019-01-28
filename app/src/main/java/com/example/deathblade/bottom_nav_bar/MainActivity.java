@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isNavHidden = false;
     private boolean anyFragmentAttached = false;
 
+
     @Override
     public void onAttachFragment(Fragment fragment) {
         anyFragmentAttached = true;
@@ -70,10 +71,12 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ListFragment()).commit();
                         return true;
                     case R.id.qr:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new QR_fragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new Events()).commit();
                         return true;
                     case R.id.notification:
 //                    mTextMessage.setText("Live feed");
+
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new QR_fragment()).commit();
                         return true;
                     case R.id.profile:
 //                    mTextMessage.setText("Profile");
@@ -107,6 +110,9 @@ public class MainActivity extends AppCompatActivity {
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 if (user == null) {
+                    int backStack = getSupportFragmentManager().getBackStackEntryCount();
+                    for (int i = 0; i < backStack; i++)
+                        getSupportFragmentManager().popBackStack();
                     Intent signInIntent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivityForResult(signInIntent, RC_SIGN_IN);
                 }
@@ -125,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mAuth.addAuthStateListener(mAuthStateListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ListFragment()).commit();
+
     }
 
     @Override

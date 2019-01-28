@@ -87,17 +87,18 @@ public class QR_fragment extends Fragment {
             if(result.getContents() == null) {
                 Log.e( "Status=","Cancelled from fragment");
             } else {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(result.getContents()));
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                i.setPackage("com.android.chrome");
-                try {
-                    startActivity(i);
-                } catch (ActivityNotFoundException ex) {
-                    // Chrome browser presumably not installed so allow user to choose instead
-                    i.setPackage(null);
-                    startActivity(i);
-                }
+                Log.e("QR", result.getContents());
+//                Intent i = new Intent(Intent.ACTION_VIEW);
+//                i.setData(Uri.parse(result.getContents()));
+//                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                i.setPackage("com.android.chrome");
+//                try {
+//                    startActivity(i);
+//                } catch (ActivityNotFoundException ex) {
+//                    // Chrome browser presumably not installed so allow user to choose instead
+//                    i.setPackage(null);
+//                    startActivity(i);
+//                }
             }
         }
     }
