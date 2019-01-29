@@ -74,9 +74,7 @@ Aliquam tincidunt tortor ut nisi consectetur, sit amet lobortis augue elementum.
     <string name="gender">Gender</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-
-
-
+    <string name="no_news">Nothing new. All caught up.</string>
 
 
 </resources>

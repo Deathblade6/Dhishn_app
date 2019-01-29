@@ -65,13 +65,7 @@ public class QR_fragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view =  inflater.inflate(R.layout.fragment_qr_fragment, container, false);
-        ImageView button = view.findViewById(R.id.click);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Scan();
-            }
-        });
+
         return view;
 
     }

@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.deathblade.bottom_nav_bar.Fragments.EventDetailsFragment;
 import com.example.deathblade.bottom_nav_bar.Fragments.Events;
 import com.example.deathblade.bottom_nav_bar.Fragments.ListFragment;
+import com.example.deathblade.bottom_nav_bar.Fragments.NewsFragment;
 import com.example.deathblade.bottom_nav_bar.Fragments.Profile;
 import com.example.deathblade.bottom_nav_bar.Fragments.QR_fragment;
 import com.example.deathblade.bottom_nav_bar.LoginFlow.LoginActivity;
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.notification:
 //                    mTextMessage.setText("Live feed");
 
-//                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new QR_fragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new NewsFragment()).commit();
                         return true;
                     case R.id.profile:
 //                    mTextMessage.setText("Profile");
