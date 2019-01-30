@@ -25,6 +25,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
 
         private TextView titleTextView, messageTextView;
 
+        public View getItemView(){
+            return itemView;
+        }
+
         public NewsHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.title_text_view);

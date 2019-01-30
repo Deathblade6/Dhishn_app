@@ -6,12 +6,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.deathblade.bottom_nav_bar.Adaptersnextra.CustomLinearLayoutManager;
 import com.example.deathblade.bottom_nav_bar.Adaptersnextra.News;
 import com.example.deathblade.bottom_nav_bar.Adaptersnextra.NewsAdapter;
 import com.example.deathblade.bottom_nav_bar.R;
@@ -59,7 +59,7 @@ public class NewsFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.recycler_news);
         mNewsList = new ArrayList<>();
         mAdapeter = new NewsAdapter(mNewsList);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setLayoutManager(new CustomLinearLayoutManager(getContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapeter);
 
@@ -68,6 +68,8 @@ public class NewsFragment extends Fragment {
             addPlaceholderNews();
         return view;
     }
+
+
 
     private void addPlaceholderNews() {
         for (int i = 0; i < 10; i++) {

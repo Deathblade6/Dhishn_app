@@ -3,7 +3,6 @@ package com.example.deathblade.bottom_nav_bar.Adaptersnextra;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +61,6 @@ public class FlagshipAdapter extends RecyclerView.Adapter<FlagshipAdapter.Flagsh
         Context context = viewGroup.getContext();
         View view = LayoutInflater.from(context).inflate(R.layout.flagship_list_item, viewGroup, false);
         FlagshipHolder holder = new FlagshipHolder(view);
-        Log.d(LOG_TAG, "View holder created" + viewHolderList.size());
         return holder;
     }
 
@@ -70,7 +68,6 @@ public class FlagshipAdapter extends RecyclerView.Adapter<FlagshipAdapter.Flagsh
     public void onViewDetachedFromWindow(@NonNull FlagshipHolder holder) {
         super.onViewDetachedFromWindow(holder);
         viewHolderList.remove(holder);
-        Log.d(LOG_TAG, "View holder detached" + viewHolderList.size());
     }
 
 
@@ -99,5 +96,4 @@ public class FlagshipAdapter extends RecyclerView.Adapter<FlagshipAdapter.Flagsh
     }
 
 
-    //TODO: delete viewHolderList;
 }

@@ -10,7 +10,6 @@ import android.support.graphics.drawable.Animatable2Compat;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -171,86 +170,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
 
-    /**
-     * Function which handles creating a new account with emailID and password.
-     *
-     * @param password    Password.
-     * @param dhishnaUser A user object which contains the details of the user.
-     */
-    private void createEmailAccountWithVerification(String password, final DhishnaUser dhishnaUser) {
-
-        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-
-        /**
-         * A listener which listens for when the verification email is sent
-         * and waits for the user to go verify it.
-         * When the mail is verified, the user details are pushed into the DB.
-         */
-        final OnCompleteListener<Void> verificationEmailListener = new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Log.d(LOG_TAG, "emailVerification: Verification link sent");
-                    mProgressTextView.setText("Email Verification Link sent. Open your email and click the link. Then click below to complete your registration.");
-                    mReloadIcon.setVisibility(View.VISIBLE);
-                    mReloadIcon.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            firebaseUser.reload();
-                            Log.d(LOG_TAG, "emailVerification: Reloading");
-                            if (firebaseUser.isEmailVerified()) {
-                                mReloadIcon.setVisibility(View.GONE);
-                                Log.d(LOG_TAG, "emailVerification: Email verified.");
-                                mProgressTextView.setText("Pushing to DB");
-                                pushToDBandExit(dhishnaUser);
-                            } else {
-                                Log.d(LOG_TAG, "emailVerification: Email still not verified.");
-                                Toast.makeText(RegistrationActivity.this, "Click the link in your mail.", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                } else {
-                    Log.d(LOG_TAG, "emailVerification: Verification email not sent.");
-                }
-            }
-        };
-
-        /**
-         * A listener which listens for when the Firebase account has been created.
-         * Verifies email upon successful completion.
-         */
-        OnCompleteListener<AuthResult> accountCreationListener = new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-
-                    //Firebase account has been successfully created.
-                    Log.d(LOG_TAG, "createUserWithEmail:success");
-                    firebaseUser = mAuth.getCurrentUser();
-
-                    //Sending the verification Email.
-                    mProgressTextView.setText("Sending Verification email.");
-                    firebaseUser.sendEmailVerification().addOnCompleteListener(verificationEmailListener);
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(LOG_TAG, "createUserWithEmail:failure", task.getException());
-
-                    Toast.makeText(RegistrationActivity.this, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show();
-                    setResult(RESULT_CANCELED);
-                    finish();
-                }
-            }
-        };
-
-
-        mAuth.createUserWithEmailAndPassword(dhishnaUser.getEmail(), password)
-                .addOnCompleteListener(this, accountCreationListener);
-        showProgress(true);
-        mProgressTextView.setText("Creating account");
-
-    }
 
     /**
      * Function which handles creating a new account with emailID and password.
@@ -274,7 +193,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
 
                     //Firebase account has been successfully created.
-                    Log.d(LOG_TAG, "createUserWithEmail:success");
                     firebaseUser = mAuth.getCurrentUser();
 
                     //Pushing to DB
@@ -282,7 +200,6 @@ public class RegistrationActivity extends AppCompatActivity {
                     pushToDBandExit(dhishnaUser);
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w(LOG_TAG, "createUserWithEmail:failure", task.getException());
 
                     Toast.makeText(RegistrationActivity.this, "Authentication failed.",
                             Toast.LENGTH_SHORT).show();
@@ -305,7 +222,6 @@ public class RegistrationActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference().child("users");
         reference.child(updatedUser.getUid()).setValue(user);
-        Log.d(LOG_TAG, "pushed");
         setResult(RESULT_OK);
         finish();
     }
@@ -354,7 +270,6 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with password parameters.
         return password.length() > 6;
     }
 

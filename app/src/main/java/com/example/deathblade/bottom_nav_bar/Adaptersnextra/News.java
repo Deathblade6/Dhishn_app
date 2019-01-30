@@ -8,6 +8,10 @@ public class News {
         this.mMessage = mMessage;
     }
 
+    public News(){
+
+    }
+
     public String getmMessage() {
         return mMessage;
     }

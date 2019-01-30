@@ -4,7 +4,6 @@ package com.example.deathblade.bottom_nav_bar.Adaptersnextra;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,7 +109,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsHold
         viewHolder.titleTextView.setTag(i);
         if (event.getIcon() != null)
             viewHolder.relativeLayout.setBackground(event.getIcon());
-        Log.e("Adapter", "DoneDeal");
         Animation animation = AnimationUtils.loadAnimation(viewHolder.titleTextView.getContext(),
                 (i > lastPosition) ? R.anim.up_from_bottom
                         : R.anim.down_from_top);
