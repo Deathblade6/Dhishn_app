@@ -75,10 +75,7 @@ public class NewsFragment extends Fragment {
 
 
     private void addPlaceholderNews() {
-        for (int i = 0; i < 10; i++) {
-            mNewsList.add(new News("Title" + i, "Message" + i));
-        }
-        String lorem = getString(R.string.placeholder_long);
+        String lorem = getString(R.string.about_dhishna);
         mNewsList.add(new News("TestTitle", lorem));
 
         mAdapeter.notifyDataSetChanged();
