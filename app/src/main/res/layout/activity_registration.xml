@@ -7,11 +7,11 @@
     android:id="@+id/root"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#303036"
-    tools:context=".RegistrationActivity">
+    android:background="#303036">
 
     <!-- Login progress -->
     <ImageView
+        android:contentDescription="@string/loading_description"
         android:id="@+id/login_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,14 +26,6 @@
         android:text="Loading"
         android:textSize="16sp"
         android:visibility="gone"/>
-
-    <ImageView
-        android:id="@+id/reload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:background="@android:drawable/screen_background_dark_transparent"
-        android:src="@android:drawable/ic_popup_sync" />
 
 
     <ScrollView

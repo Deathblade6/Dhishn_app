@@ -12,7 +12,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="?android:attr/actionBarSize"
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary"
         app:title="Events"
@@ -63,7 +63,7 @@
                 <TextView
                     android:id="@+id/departments_name_ec"
                     style="@style/departmentNameStyle"
-                    android:text="@string/department_name_ec" />
+                    android:text="@string/department_name_eee" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/departments_recycler_view_ec"
@@ -81,7 +81,7 @@
                 <TextView
                     android:id="@+id/departments_name_eee"
                     style="@style/departmentNameStyle"
-                    android:text="@string/department_name_eee" />
+                    android:text="@string/department_name_ec" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/departments_recycler_view_eee"
@@ -200,6 +200,7 @@
         android:visibility="gone">
 
         <ImageView
+            android:contentDescription="@string/no_internet"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
@@ -225,6 +226,7 @@
         android:orientation="vertical">
 
         <ImageView
+            android:contentDescription="@string/loading_description"
             android:id="@+id/login_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

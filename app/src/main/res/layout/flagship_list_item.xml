@@ -11,7 +11,9 @@
         android:id="@+id/layout_with_bg"
         android:transitionName="@string/transition_string"
         android:layout_height="match_parent">
+
         <ImageView
+            android:contentDescription="@string/overlay_desc"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"

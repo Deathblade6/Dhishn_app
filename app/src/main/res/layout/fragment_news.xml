@@ -23,6 +23,7 @@
 
 
         <ImageView
+            android:contentDescription="@string/empty_desc"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:src="@drawable/empty_box"/>
