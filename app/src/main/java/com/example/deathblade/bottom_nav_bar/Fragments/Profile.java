@@ -110,9 +110,9 @@ public class Profile extends Fragment {
         MainActivity activity = (MainActivity) getActivity();
 
         activity.setSupportActionBar(toolbar);
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        activity.getSupportActionBar().setHomeButtonEnabled(false);
-        activity.getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
+//        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        activity.getSupportActionBar().setHomeButtonEnabled(false);
+//        activity.getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         setHasOptionsMenu(true);
     }
 

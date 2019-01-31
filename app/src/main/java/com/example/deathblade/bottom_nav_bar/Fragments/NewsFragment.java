@@ -76,7 +76,7 @@ public class NewsFragment extends Fragment {
 
     private void addPlaceholderNews() {
         String lorem = getString(R.string.about_dhishna);
-        mNewsList.add(new News("TestTitle", lorem));
+        mNewsList.add(new News("About", lorem));
 
         mAdapeter.notifyDataSetChanged();
     }
@@ -99,10 +99,7 @@ public class NewsFragment extends Fragment {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     News news = dataSnapshot.getValue(News.class);
-                    if (!cleared){
-                        cleared = true;
-                        mNewsList.clear();
-                    }
+
                     mNewsList.add(news);
                     mAdapeter.notifyItemInserted(mAdapeter.getItemCount() - 1);
                 }

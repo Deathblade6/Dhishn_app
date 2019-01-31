@@ -40,9 +40,11 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
     private static final String UID_KEY = "uid";
     private static final String MY_PREFS_NAME = "pref";
     SharedPreferences prefs;
+
     public EventDetailsFragment() {
         // Required empty public constructor
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +66,11 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
         title = event.getmTitle();
 
         ImageView imageView = view.findViewById(R.id.overlay);
-        imageView.setImageDrawable(event.getIcon());
+        if (event.getIcon() != null)
+            imageView.setImageDrawable(event.getIcon());
+        else
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
 
         prefs = getActivity().getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
@@ -78,7 +84,6 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
 //        populateViewsWithPlaceholders(event, view);
         populateViews(event, view);
         setupShowMoreFeature(view);
-
 
 
         return view;
@@ -184,7 +189,7 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
         TextView feesText = view.findViewById(R.id.reg_fee_text_view);
         TextView statusText = view.findViewById(R.id.reg_status_text_view);
         CardView registerButton = view.findViewById(R.id.register_btn);
-            CardView prizeCardOne = view.findViewById(R.id.prize_one_card);
+        CardView prizeCardOne = view.findViewById(R.id.prize_one_card);
         CardView prizeCardTwo = view.findViewById(R.id.prize_two_card);
         CardView prizeCardThree = view.findViewById(R.id.prize_three_card);
         CardView coordinatorCardOne = view.findViewById(R.id.coordinator_card_one);
@@ -201,25 +206,26 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
                 String uid = prefs.getString(UID_KEY, "");
                 FirebaseDatabase userreference = FirebaseDatabase.getInstance();
                 DatabaseReference user = userreference.getReference().child("users").child(uid);
-                url[0]+="?";
-                Log.e("uid=",event.getmInstaUID());
-                if (!event.getmInstaUID().equals("")){
-                    Toast.makeText(getContext(),"uid="+event.getmInstaUID(),Toast.LENGTH_SHORT).show();
-                    url[0] +="data_"+event.getmInstaUID()+"=" + uid + "&data_readonly=data_"+ event.getmInstaUID();
+                url[0] += "?";
+                Log.e("uid=", event.getmInstaUID());
+                if (!event.getmInstaUID().equals("")) {
+                    Toast.makeText(getContext(), "uid=" + event.getmInstaUID(), Toast.LENGTH_SHORT).show();
+                    url[0] += "data_" + event.getmInstaUID() + "=" + uid + "&data_readonly=data_" + event.getmInstaUID();
                 }
                 user.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        url[0] +="&data_name="+(String) dataSnapshot.child("name").getValue();
-                        url[0] +="&data_email="+(String) dataSnapshot.child("email").getValue();
-                        url[0] +="&data_phone="+(String) dataSnapshot.child("phone").getValue();
-                        url[0] +="&data_readonly=data_name&data_readonly=data_email&data_readonly=data_phone";
-                        if (! url[0].equals("")){
+                        url[0] += "&data_name=" + (String) dataSnapshot.child("name").getValue();
+                        url[0] += "&data_email=" + (String) dataSnapshot.child("email").getValue();
+                        url[0] += "&data_phone=" + (String) dataSnapshot.child("phone").getValue();
+                        url[0] += "&data_readonly=data_name&data_readonly=data_email&data_readonly=data_phone";
+                        if (!url[0].equals("")) {
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(url[0]));
                             startActivity(i);
                         }
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                     }
@@ -238,11 +244,10 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
         prizeTextTwo.setText(prize2);
         prizeTextThree.setText(prize3);
         int i = 0;
-        if (event.getCoordinator1().getName().equals("")){
+        if (event.getCoordinator1().getName().equals("")) {
             coordinatorCardOne.setVisibility(View.GONE);
             i++;
-        }
-        else {
+        } else {
             coordinatorTextOne.setText(event.getCoordinator1().getName());
             coordinatorCardOne.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -256,11 +261,10 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
             });
         }
 
-        if (event.getmCoordinator2().getName().equals("")){
+        if (event.getmCoordinator2().getName().equals("")) {
             coordinatorCardTwo.setVisibility(View.GONE);
             i++;
-        }
-        else {
+        } else {
             coordinatorTextTwo.setText(event.getmCoordinator2().getName());
 
             coordinatorCardTwo.setOnClickListener(new View.OnClickListener() {
@@ -275,9 +279,8 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
             });
         }
 
-        if (i==2)
+        if (i == 2)
             coordinatorContainer.setVisibility(View.GONE);
-
 
 
         rulesCard.setVisibility((rules.equals("")) ? View.GONE : View.VISIBLE);
@@ -434,11 +437,12 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
     public void onDetach() {
         super.onDetach();
     }
+
     @Override
     public void onResume() {
         super.onResume();
 
-        if(getView() == null){
+        if (getView() == null) {
             return;
         }
 
@@ -448,7 +452,7 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ListFragment()).commit();
                     return true;
                 }
