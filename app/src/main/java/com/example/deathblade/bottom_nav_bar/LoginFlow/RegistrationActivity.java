@@ -41,7 +41,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private View mLoginFormView;
     private ImageView mProgressView;
     private TextView mProgressTextView;
-    private ImageView mReloadIcon;
 
     private FirebaseUser firebaseUser;
 
@@ -66,7 +65,6 @@ public class RegistrationActivity extends AppCompatActivity {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = (ImageView) findViewById(R.id.login_progress);
         mProgressTextView = (TextView) findViewById(R.id.text_progress);
-        mReloadIcon = (ImageView) findViewById(R.id.reload);
 
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
