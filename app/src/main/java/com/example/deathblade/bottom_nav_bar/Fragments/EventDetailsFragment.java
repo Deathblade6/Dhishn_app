@@ -57,7 +57,8 @@ public class EventDetailsFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.event_details_layout, container, false);
-        setRetainInstance(true);
+//        setRetainInstance(true);
+//        crashes when you call someone.
         Bundle bundle = getArguments();
         Event event = (Event) bundle.getSerializable("event");
         title = event.getmTitle();
