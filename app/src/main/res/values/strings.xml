@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RecyclerTest</string>
+    <string name="app_name">Dhishna 2019</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -19,6 +19,7 @@
     <string name="event_prize_two">2nd prize</string>
     <string name="event_prize_three">3rd prize</string>
 
+    <string name="about_dhishna">Dhishna is the annual techfest of School Of Engineering,CUSAT. A myriad of events,mind boggling games,a cornucopia of challenges and competitions,exciting prizes and above all,an adventure that shouldn\'t be missed ! The 7 specialized branches of School Of Engineering,CUSAT merge together their talents,resources and hardwork,the building blocks for Dhishna. Breaking the usual norms of studies confined to textbooks,we aim to take learning to a whole new level. The perfect platform to launch your rockets,encompass your minds and explore the different niches of technology. Encouraging each and everyone of you,to step up,mould your thoughts and lives in your unique way,discover the tech lover in you ! We present to you, Dhishna.</string>
     <string name="placeholder_coordinator">Ebin Santy</string>
     <string name="placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean interdum nunc magna, ut semper erat rutrum vel. Phasellus dictum lacus et mollis aliquet. In vitae interdum diam.</string>
     <string name="placeholder_long">""<b>ROUND 1: TYPE HYPE</b>\n\nOne participant from the team will be given a time duration of 2 minutes to type a page of 150 words. However the screen will not be displayed, and the participant will not be able to see what he/she types during the 2 minute challenge. The points awarded will be based only on the degree of accuracy.\n\nIn case of a tie after 4 rounds, the team that completed this round faster will be declared the winner.\n\n<b>ROUND 2:  TRAILBLAZER</b>\n\nThe participants will be shown a web page from which they have to navigate to the destination web page specified without using anything other than the mouse, within a specified time limit. Marks will be awarded only if they reach the destination web page within the allotted time of 5 minutes.\nThere will be no option to return to the previous page. The participants will have to restart to do that.\n\n<b>ROUND 3: QUICK CONNECT</b>\n\n   The participants will be given 4 envelopes, each containing a picture. To open an envelope, a participant will have to solve the question given outside the envelope. Once they get the right answer, they are allowed to open the envelope, which contains a picture. When all 4 envelopes are opened, the participants can guess the connection between the pictures.\n\nIn case any envelope is unopened, the participant can request for the answer to unlock the envelope, at the cost of -5 points.\n\n A proper fully correct answer (the connection between the four pictures) will be rewarded 30 points. \n \nThe time allotted to complete the whole round is 6 minutes.\n\n<b>ROUND 4: THE BRAINIAC</b>\n\nEach team will be allotted a maximum of 7 minutes to solve a crime. The case files with the required evidence will be given to the participants. The participants will have to read this and find the criminal. The participants will be required to give the right answer along with a proper reason to justify their answer (to avoid random guesswork).\n\nRegistration should be individual."</string>
@@ -74,9 +75,13 @@ Aliquam tincidunt tortor ut nisi consectetur, sit amet lobortis augue elementum.
     <string name="gender">Gender</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-
-
-
+    <string name="no_news">Nothing new. All caught up.</string>
+    <string name="loading_description">Loading animation</string>
+    <string name="overlay_desc">Overlar</string>
+    <string name="event_desc">event icon</string>
+    <string name="coord_desc">coordinator icon</string>
+    <string name="empty_desc">empty</string>
+    <string name="qr_desc">QR code</string>
 
 
 </resources>

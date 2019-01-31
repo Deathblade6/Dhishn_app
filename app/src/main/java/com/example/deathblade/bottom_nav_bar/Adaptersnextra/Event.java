@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class Event implements Serializable {
 
-    private String mTitle, mMessage, mDescription, mRules , photoURl;
+    private String mTitle, mMessage, mDescription, mRules;
     private String mPrize1, mPrize2, mPrize3, mFee , mStatus, mInstaLink , mInstaUID;
     private Coordinator coordinator1, mCoordinator2;
     private Drawable icon;
@@ -103,9 +103,6 @@ public class Event implements Serializable {
         return mRules;
     }
 
-    public String getPhotoURl() {
-        return photoURl;
-    }
 
     public String getmPrize3() {
         return mPrize3;
@@ -147,20 +144,5 @@ public class Event implements Serializable {
         this.mInstaUID = mInstaUID;
     }
 
-//    public class Coordinator {
-//        private String name, number;
-//
-//        public Coordinator(){}
-//
-//        public String getNumber() {
-//            return number;
-//        }
-//
-//        public String getName() {
-//            return name;
-//        }
-//
-//
-//    }
 
 }

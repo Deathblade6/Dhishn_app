@@ -10,7 +10,6 @@ import android.support.graphics.drawable.Animatable2Compat;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -161,8 +160,6 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
                         } else {
                             showProgress(false);
-                            Log.d(LOG_TAG, "signInWithEmail: Sign In Failed");
-                            String signInFailed = "Incorrect username or password.";
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -182,8 +179,6 @@ public class LoginActivity extends AppCompatActivity {
      * @param show boolean dictating whether or not the progress animation should be shown.
      */
     private void showProgress(final boolean show) {
-        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
         avd = AnimatedVectorDrawableCompat.create(this, R.drawable.logo_loading_vector_white);
         mProgressView.setImageDrawable(avd);
 
@@ -202,8 +197,7 @@ public class LoginActivity extends AppCompatActivity {
         } else{
             animatable.stop();
             avd.clearAnimationCallbacks();
-//            avd = AnimatedVectorDrawableCompat.create(this, R.drawable.logo_loading_vector_white);
-//            mProgressView.setImageDrawable(avd);
+
         }
 
 

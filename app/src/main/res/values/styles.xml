@@ -44,7 +44,13 @@
 
     <style name="CollapseTextStyle">
         <item name="android:textColor">@color/titleTextColor</item>
+        <item name="android:paddingStart">16dp</item>
+    </style>
+    <style name="ExpandTextStyle">
+        <item name="android:textColor">@color/titleTextColor</item>
         <item name="android:paddingStart">40dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">false</item>
     </style>
 
     

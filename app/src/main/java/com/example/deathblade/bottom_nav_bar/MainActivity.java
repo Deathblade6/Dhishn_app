@@ -9,21 +9,18 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.deathblade.bottom_nav_bar.Fragments.EventDetailsFragment;
 import com.example.deathblade.bottom_nav_bar.Fragments.Events;
 import com.example.deathblade.bottom_nav_bar.Fragments.ListFragment;
+import com.example.deathblade.bottom_nav_bar.Fragments.NewsFragment;
 import com.example.deathblade.bottom_nav_bar.Fragments.Profile;
-import com.example.deathblade.bottom_nav_bar.Fragments.QR_fragment;
 import com.example.deathblade.bottom_nav_bar.LoginFlow.LoginActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
     private boolean isNavHidden = false;
     private boolean anyFragmentAttached = false;
 
+
     @Override
     public void onAttachFragment(Fragment fragment) {
         anyFragmentAttached = true;
         if (fragment instanceof EventDetailsFragment) {
-            EventDetailsFragment headlinesFragment = (EventDetailsFragment) fragment;
             if (navigation != null)
                 navigation.animate().translationY(navigation.getHeight()).setDuration(300).start();
             isNavHidden = true;
@@ -70,13 +67,12 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ListFragment()).commit();
                         return true;
                     case R.id.qr:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new QR_fragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new Events()).commit();
                         return true;
                     case R.id.notification:
-//                    mTextMessage.setText("Live feed");
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new NewsFragment()).commit();
                         return true;
                     case R.id.profile:
-//                    mTextMessage.setText("Profile");
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new Profile()).commit();
                         return true;
                 }
@@ -87,13 +83,11 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
-    //Hey there
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mTextMessage = (TextView) findViewById(R.id.message);
         FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
@@ -107,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 if (user == null) {
+                    int backStack = getSupportFragmentManager().getBackStackEntryCount();
+                    for (int i = 0; i < backStack; i++)
+                        getSupportFragmentManager().popBackStack();
                     Intent signInIntent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivityForResult(signInIntent, RC_SIGN_IN);
                 }
@@ -115,8 +112,6 @@ public class MainActivity extends AppCompatActivity {
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        String s = getSupportFragmentManager().isStateSaved() ? "stateSaved" : "notSaved";
-        Log.e(LOG_TAG, s);
         if (!anyFragmentAttached)
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ListFragment()).commit();
     }
@@ -125,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mAuth.addAuthStateListener(mAuthStateListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ListFragment()).commit();
+
     }
 
     @Override
@@ -145,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                 editor.putString(UID_KEY, uid);
                 editor.apply();
-                Log.e(LOG_TAG, "UID: " + uid);
             }
         }
 

@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 public class CustomLinearLayoutManager extends LinearLayoutManager {
     public CustomLinearLayoutManager(Context context) {
@@ -42,5 +43,14 @@ public class CustomLinearLayoutManager extends LinearLayoutManager {
                 };
         linearSmoothScroller.setTargetPosition(position);
         startSmoothScroll(linearSmoothScroller);
+    }
+
+    @Override
+    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+        try {
+            super.onLayoutChildren(recycler, state);
+        } catch (IndexOutOfBoundsException e){
+            Log.e("LayoutManager", "exception caught");
+        }
     }
 }

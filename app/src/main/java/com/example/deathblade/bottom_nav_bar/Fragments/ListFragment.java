@@ -105,8 +105,10 @@ public class ListFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.sign_out)
+        if (item.getItemId() == R.id.sign_out){
+
             FirebaseAuth.getInstance().signOut();
+        }
 
         return super.onOptionsItemSelected(item);
     }
