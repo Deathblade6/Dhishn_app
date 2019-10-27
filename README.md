@@ -7,3 +7,4 @@ Implements the following notable features.
 2. RecyclerViews with Cards.
 3. VectorDrawableAnimations.
 4. Refferal to external websites with proper GET request.
+5. Reffer to Deathblade for cookies.
